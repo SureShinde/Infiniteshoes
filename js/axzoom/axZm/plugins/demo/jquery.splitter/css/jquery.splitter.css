@@ -1,0 +1,86 @@
+/*!
+ * StyleSheet for JQuery splitter Plugin
+ * Copyright (C) 2010 Jakub Jankiewicz <http://jcubic.pl>
+ *
+ * Same license as plugin
+ */
+
+
+.splitter_panel {
+  position: relative;
+}
+.splitter_panel .vsplitter {
+    background-color: #808080;
+    cursor: col-resize;
+    border-right: #3D3D3D 1px solid;
+    border-left: #5B5B5B 1px solid;
+    z-index: 900;
+    width: 5px;
+    
+	background: #848484; /* Old browsers */
+	background: -moz-linear-gradient(left,  #848484 0%, #5b5b5b 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#848484), color-stop(100%,#5b5b5b)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #848484 0%,#5b5b5b 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #848484 0%,#5b5b5b 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #848484 0%,#5b5b5b 100%); /* IE10+ */
+	background: linear-gradient(to right,  #848484 0%,#5b5b5b 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#848484', endColorstr='#5b5b5b',GradientType=1 ); /* IE6-9 */
+
+}
+
+.splitter_panel .hsplitter {
+    background-color: #808080;
+    cursor: row-resize;
+    border-top: #5B5B5B 1px solid;
+    border-bottom: #3D3D3D 1px solid;
+    z-index: 800;
+    height: 5px;
+    
+	background: #848484; /* Old browsers */
+	background: -moz-linear-gradient(top,  #848484 0%, #5b5b5b 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#848484), color-stop(100%,#5b5b5b)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #848484 0%,#5b5b5b 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #848484 0%,#5b5b5b 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #848484 0%,#5b5b5b 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #848484 0%,#5b5b5b 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#848484', endColorstr='#5b5b5b',GradientType=0 ); /* IE6-9 */
+
+}
+.splitter_panel .vsplitter.splitter-invisible,
+.splitter_panel .hsplitter.splitter-invisible {
+    background: none;
+}
+.splitter_panel .vsplitter, .splitter_panel .left_panel, .splitter_panel .right_panel,
+.splitter_panel .hsplitter, .splitter_panel .top_panel, .splitter_panel .bottom_panel {
+    position: absolute;
+    overflow: auto;
+}
+.splitter_panel .vsplitter, .splitter_panel .left_panel, .splitter_panel .right_panel {
+  height: 100%;
+}
+.splitter_panel .hsplitter, .splitter_panel .top_panel, .splitter_panel .bottom_panel {
+  width: 100%;
+}
+.splitter_panel .top_panel, .splitter_panel .left_panel, .splitter_panel .vsplitter {
+   top: 0;
+}
+.splitter_panel .top_panel, .splitter_panel .bottom_panel, .splitter_panel .left_panel, .splitter_panel .hsplitter {
+   left: 0;
+}
+.splitter_panel .bottom_panel {
+   bottom: 0;
+}
+.splitter_panel .right_panel {
+   right: 0;
+}
+.splitterMask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+.splitter_panel .hsplitter{
+	overflow: hidden;
+}

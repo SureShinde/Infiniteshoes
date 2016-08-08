@@ -1,0 +1,13 @@
+<?php
+/**
+ * ShopperApproved Module for Magento 
+ * @package     ShprAprvd_ShopperApproved
+ * @author      ShprAprvd (http://www.shopperapproved.com/)
+ * @copyright   Copyright (c) 2014 ShprAprvd (http://www.shopperapproved.com/)
+ * @license     Open Software License
+ */
+?>
+
+<?php if($this->getSetting('enabled')) { ?>
+<script type="text/javascript"> var sa_values = { 'site':<?php echo $this->getSetting('account'); ?>, 'orderid':'<?php echo $this->getSetting('orderid'); ?>', 'name':'<?php echo $this->getSetting('name'); ?>', 'email':'<?php echo $this->getSetting('email'); ?>', 'country':'<?php echo $this->getSetting('country'); ?>', 'state':'<?php echo $this->getSetting('state'); ?>' }; function saLoadScript(src) { var js = window.document.createElement("script"); js.src = src; js.type = "text/javascript"; document.getElementsByTagName("head")[0].appendChild(js); } var d = new Date(); if (d.getTime() - 172800000 > 1427423361000) saLoadScript("//www.shopperapproved.com/thankyou/rate/<?php echo $this->getSetting('account'); ?>.js"); else saLoadScript("//www.shopperapproved.com/thankyou/rate/<?php echo $this->getSetting('account'); ?>.js?d=" + d.getTime()); </script>
+<?php } ?>

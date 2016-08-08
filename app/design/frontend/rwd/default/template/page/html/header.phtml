@@ -1,0 +1,167 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<div class="header_wrap full left">
+
+    <div class="header_left left">
+        <div class="header_content right">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-left')->toHtml();?>
+        </div>
+    </div>
+    <div class="header_right right">
+        <div class="header_content left">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-right')->toHtml();?>
+        </div>
+    </div>
+
+    <div class="clr"></div>
+
+    <div class="width_1200 header_center">
+        <div class="full left header_center_in">
+        	<div class="hidden show_mobilee title_home_mo">
+            	<?php echo $this->__('Call Us:  <b>888-882-1055</b>') ?>
+                <span>Monday-Friday 9am-6pm EST</span>
+            </div>
+            <div class="header_logo left">
+                <a href="<?php echo Mage::getBaseUrl();?>"><img src="<?php echo Mage::getBaseUrl();?>media/new/logo.png" /></a>
+            </div><!-- end header_logo -->
+            <div class="header_center_in_right right">
+                <div class="right">
+                    <div class="left header_block header_block_1">
+                        <?php echo $this->__('Call Us:  <b>888-882-1055</b>') ?>
+                        <span>Monday-Friday 9am-6pm EST</span>
+                    </div><!-- end header_block_1 -->
+                    <div class="left header_block header_block_2">
+                        <?php
+                        //Get the customer session and check if the customer is logged in
+                        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+                            ?>
+                            <!--<a href="<?php /*echo Mage::getUrl('customer/account/logout');*/?>"><?php /*echo $this->__('Logout') */?></a>-->
+
+                            <ul class="account_login_wrap">
+                                <li class="account_login_wrap_parent">
+                                    <a href="#" id="account_login_wrap_parent_a"><?php echo $this->__('My Account') ?></a>
+                                    <?php echo $this->getChildHtml('topLinks') ?>
+                                </li>
+                            </ul>
+                        <?php
+                        }else{
+                            ?>
+                            <a href="<?php echo Mage::getUrl('customer/account/login');?>"><?php echo $this->__('Login') ?></a>
+                        <?php
+                        }
+                        ?>
+                    </div><!-- end header_block_2 -->
+                    <div class="left header_block header_block_3">
+                        <div class="header-minicart">
+                            <?php echo $this->getChildHtml('minicart_head'); ?>
+                        </div>
+                    </div><!-- end header_block_3 -->
+
+                    <div id="header-search" class="right">
+                        <?php echo $this->getChildHtml('topSearch') ?>
+                    </div>
+
+                    <div class="skip-links menu_mobile">
+                        <a href="#header-nav" class="skip-link skip-nav">
+                            <span class="icon"></span>
+                            <span class="label"><?php //echo $this->__('Menu'); ?></span>
+                        </a>
+                        <a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account" class="skip-link skip-account">
+                            <span class="icon"></span>
+                            <span class="label"><?php echo $this->__('Account'); ?></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="clr"></div>
+
+                <div class="account-cart-wrapper">
+                    <div id="header-account" class="skip-content">
+                        <?php echo $this->getChildHtml('topLinks') ?>
+                    </div>
+                </div>
+
+                <div id="header-nav" class="skip-content right">
+                    <?php echo $this->getChildHtml('topMenu') ?>
+                </div>
+            </div><!-- end header_center_in_right -->
+        </div>
+    </div><!-- end header_center -->
+
+    <div class="clr"></div>
+
+    <?php
+    if(Mage::getBlockSingleton('page/html_header')->getIsHomePage()) { //is home page
+    ?>
+        <div class="slideshow_wrap full left">
+            <div class="slideshow-container slideshow-container1">
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('slideshow')->toHtml();?>
+                <div class="slideshow-pager"></div>
+                <!--<span class="slideshow-prev"></span> <span class="slideshow-next"></span>-->
+            </div>
+        </div><!-- end slideshow_wrap -->
+    <?php
+    }else if(Mage::registry('current_category')){//is category page
+        $layer = Mage::getSingleton('catalog/layer');
+        $_category = $layer->getCurrentCategory();
+        $currentCategoryId= $_category->getId();
+        $currentCategoryName= $_category->getName();
+        $brands_id = 20;
+        $children = Mage::getModel('catalog/category')->getCategories($brands_id);
+        $category_banner = 1;
+        $brands_banner_url =  $_category->getImageUrl();
+        $catalog_desc = Mage::getModel('catalog/layer')->getCurrentCategory()->getDescription();;
+        foreach ($children as $category) {
+            if($category->getId() == $currentCategoryId){
+                $category_banner = 2;//for brands detail
+            }
+        }
+        if($currentCategoryId == $brands_id){
+            $category_banner = 0;//for brands listing
+        }
+        if(Mage::registry('current_product'))
+        {
+            $category_banner = 3;//for product detail page
+        }
+
+        if($category_banner==1){//category baner cho cac trang binh thuong
+        ?>
+            <div class="banner_category full left" <?php echo $style_brands?>>
+                <img src="<?php echo Mage::getBaseUrl();?>media/wysiwyg/banner/banner_category.jpg" />
+            </div><!-- end banner_category -->
+        <?php
+        }
+    }
+    ?>
+</div><!-- end header_wrap -->
+
+<div class="clr"></div>
+
+<?php //echo $this->getChildHtml('topContainer'); ?>

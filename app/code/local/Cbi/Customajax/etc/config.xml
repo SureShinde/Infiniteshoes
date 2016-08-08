@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cbi_Customajax>
+            <version>0.0.1</version>
+        </Cbi_Customajax>
+    </modules>
+    <global>
+    </global>
+    <frontend>
+        <routers>
+            <customajax>
+                <use>standard</use>
+                <args>
+                    <module>Cbi_Customajax</module>
+                    <frontName>customajax</frontName>
+                </args>
+            </customajax>
+        </routers>
+    </frontend>
+    <!--<customajax_index_index>-->
+    <customajax_loadproduct_getbysku>
+        <remove name="head" />
+        <remove name="header" />
+        <remove name="footer" />
+        <remove name="right" />
+        <remove name="left" />
+        <reference name="content">
+            <block type="page/html" name="content" output="toHtml" template="catalog/product/view.phtml"/>
+        </reference>
+    </customajax_loadproduct_getbysku>
+</config>

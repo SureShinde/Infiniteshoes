@@ -1,0 +1,1186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/">
+	<head>
+		<title>AJAX-ZOOM jQuery axZmThumbSlider test page</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="imagetoolbar" content="no">
+		<meta name="viewport" content="width=device-width,  minimum-scale=1, maximum-scale=1, user-scalable=no">
+		
+        <!-- Include jQuery. -->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+		<!-- Include AJAX-ZOOM as thumbSlider is supposed to be used with AJAX-ZOOM anyway -->
+		<script type="text/javascript" src="../../jquery.axZm.js"></script>
+        
+        <!-- Include thumbSlider CSS -->
+        <link rel="stylesheet" type="text/css" href="skins/default/jquery.axZm.thumbSlider.css" />
+
+        <!-- Include mousewheel script -->
+        <script type="text/javascript" src="lib/jquery.mousewheel.min.js"></script>
+        
+        <!-- Include thumbSlider JS. -->
+        <script type="text/javascript" src="lib/jquery.axZm.thumbSlider.js"></script>
+        
+		<!-- Test functions, not needed -->
+		<script type="text/javascript">
+			var consoleLog = function(msg){
+				if (typeof console != 'undefined'){
+					console.log(msg);
+				} 
+			}
+		</script>
+		
+		<!-- Not needed -->
+		<link href="../../plugins/demo/syntaxhighlighter/styles/shCore.css" type="text/css" rel="stylesheet" />
+		<link href="../../plugins/demo/syntaxhighlighter/styles/shThemeCustom.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript" src="../../plugins/demo/syntaxhighlighter/src/shCore.js"></script>
+		<script type="text/javascript" src="../../plugins/demo/syntaxhighlighter/scripts/shBrushJScript.js"></script>
+		<script type="text/javascript" src="../../plugins/demo/syntaxhighlighter/scripts/shBrushPhp.js"></script>
+		<script type="text/javascript" src="../../plugins/demo/syntaxhighlighter/scripts/shBrushCss.js"></script>
+		<script type="text/javascript" src="../../plugins/demo/syntaxhighlighter/scripts/shBrushXml.js"></script>
+		<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+        <style type="text/css">
+            /* CSS for this page */
+            body {height: 100%; min-height: 100%; padding: 0px; margin: 0px; color: #444444;}	
+			h2 {color: #565656;}
+			body>h1 {background-color: #B9CC52; display: block; color: #000000; padding: 10px 10px 10px 10px; margin-top: 40px;}
+			body>h2 {margin-top: 45px; margin-left: 20px; margin-right: 20px;}
+			a.hover {text-decoration: underline;}
+			a,a:hover,a:visited{color: blue; text-decoration:  none;}
+			body>p {color: #444444; margin-left: 10px; margin-right: 20px;}
+
+			.cf:before,
+			.cf:after {content: " ";  display: table; }
+			.cf:after {clear: both;}
+			.cf {*zoom: 1;}
+			
+			.scrollTo a {padding: 3px; background-color: #565656; color: white; font-size: smaller; margin: 3px; display: inline-block; text-decoration: none; border-radius: 3px;}
+			
+			.sliderExampleCont {min-height: 320px; min-width: 600px; background-color: #E8E8E8; padding: 10px; margin: 0 0 10px 10px; border-radius: 10px;}
+
+			.optionsTable {width: 748px; border-spacing: 0; border: 1px solid #AAAAAA; font-family: Tahoma, Geneva, sans-serif; font-size: 10pt;}
+			.optionsTable th {background-color: #D4D4D4; padding-top: 10px; padding-bottom: 10px; font-size: 120%; font-family: "Comic Sans MS", cursive, sans-serif;}
+			.optionsTable td,th{padding-left: 5px; padding-right: 5px;}
+			.optionsTable th{white-space: nowrap;}
+			.optionsTable td,th {vertical-align: top; line-height: 1.2em; text-align: left; border-bottom: 1px solid #AAAAAA;  padding-top: 3px; padding-bottom: 8px;}
+			.optionsTable ul,ol {padding-left: 14px; margin-top: 0}
+			.optionsTable li {margin-bottom: 5px; padding-left: 14px;}
+			.optionsTable tr:nth-child(odd) { background-color: #FDFDFD }
+			.optionsTable tr:last-child>td { border: none }
+			
+			 
+			.extButton{
+				width: 50px; height: 20px; background-color: #5E7C12; color: white; cursor: pointer; display: inline-block;
+				text-align: center; font: 20px bold; line-height: 20px; border-radius: 5px 5px 5px 5px; 
+				border: 1px solid black;
+			}
+			
+			.extButton.hover {background-color: grey;}
+			.extButton.press {background-color: #B22222;}
+			.extButton.disabled {background-color: #AAAAAA; border-color: #AAAAAA;}
+			
+			
+			 
+        </style>
+
+    </head>
+
+    <body>
+    	<h1 style="margin-top: 0; height: 110px; vertical-align: bottom;">AJAX-ZOOM jQuery responsive thumb and content slider (horizontal / vertical) - $.axZmThumbSlider(options)</h1>
+		
+		<p><b>Extension version:</b> 2.15<br>
+			<b>Date:</b> 2016-04-28
+		</p>
+
+		<p><b>Dependencies:</b> jQuery 1.6+; jquery.mousewheel.js (optionally for mousewheel scrolling); jquery.axZm.js (supposed to be used with AJAX-ZOOM); 
+		</p>
+
+ 		<p><b>License:</b> AJAX-ZOOM license - <a href="http://www.ajax-zoom.com/index.php?cid=download#heading_4">http://www.ajax-zoom.com/index.php?cid=download#heading_4</a>
+		</p>
+
+		<p><b>About:</b> this thumb slider plugin can be used optionally / complementary to several 
+		<a href="http://www.ajax-zoom.com/index.php?cid=examples">AJAX-ZOOM implementations</a>. 
+		It is not required to use it. In the AJAX-ZOOM examples where this slider is implemented it 
+		can be easily replaced by any other thumb slider.
+		</p>
+		
+		<p><b>Why an other thumb slider:</b> for external usage ("around AJAX-ZOOM on several AJAX-ZOOM example pages") 
+		we have previously used "jCarousel". Howver the former major jCarousel version has been developed around 2006 
+		and it seemed to have had it glorious days in the past. The current, newly released jCarousel did not fulfill 
+		our expectations. Some alternatives found on the web either. 
+		Compared to AJAX-ZOOM a "thumb slider" looked like couple lines of code 
+		so we have decided to write our own plugin to use with AJAX-ZOOM. 
+		From the perspective of a coder / designer axZmThumbSlider 
+		is quite easy to implement, can be configured over javascript / CSS, 
+		is responsive and has generally needed API / options available. It can also be used as "content scroller" (not just thumbs), 
+		but this functionality is not well elaborated yet. Our plan is also to replace internal AJAX-ZOOM vertical, horizontal and inner 
+		galleries with this thumbs slider which will be the case in AJAX-ZOOM Ver. 4.3.1+
+		</p>
+		
+		<h1 style="margin-top: 50px;">Demo</h1>
+        <div class="cf sliderExampleCont" style="float: left; min-height: 670px"> 
+	        <h2>Horizontal slider with fixed width<br />external controls / some API showcase</h2>
+	       
+		    <div id="slider1" style="width: 600px; height: 145px; position: relative;">
+		        <ul style="display: none">
+		            <li onClick="console.log('thumb 1')"><img src="images/image_01.jpg"><div class="label">Some thumb description bla bla bla 1</div></li>
+		            <li onClick="consoleLog('thumb 2')"><img src="images/image_02.jpg"><div class="label">Some thumb description bla bla bla 2</div></li>
+		            <li onClick="consoleLog('thumb 3')"><img src="images/image_03.jpg"></li>
+		            <li onClick="consoleLog('thumb 4')"><img src="images/image_04.jpg"></li>
+		            <li onClick="consoleLog('thumb 5')"><img src="images/image_05.jpg"></li>
+		            <li onClick="consoleLog('thumb 6')"><img src="images/image_06.jpg"></li>
+		            <li onClick="consoleLog('thumb 7')"><img src="images/image_07.jpg"></li>
+		            <li onClick="consoleLog('thumb 8')"><img src="images/image_08.jpg"></li>
+		            <li onClick="consoleLog('thumb 9')"><img src="images/image_09.jpg"></li>
+		            <li onClick="consoleLog('thumb 10')"><img src="images/image_10.jpg"></li>
+		            <li onClick="consoleLog('thumb 11')"><img src="images/image_11.jpg"></li>
+		            <li onClick="consoleLog('thumb 12')"><img src="images/image_12.jpg"></li>
+		            <li onClick="consoleLog('thumb 13')"><img src="images/image_13.jpg"></li>
+		            <li onClick="consoleLog('thumb 14')"><img src="images/image_14.jpg"></li>
+		            <li onClick="consoleLog('thumb 15')"><img src="images/image_15.jpg"></li>
+		            <li onClick="consoleLog('thumb 16')"><img src="images/image_16.jpg"></li>
+		            <li onClick="consoleLog('thumb 17')"><img src="images/image_17.jpg"></li>
+		            <li onClick="consoleLog('thumb 18')"><img src="images/image_18.jpg"></li>
+		            <li onClick="consoleLog('thumb 19')"><img src="images/image_19.jpg"></li>
+		            <li onClick="consoleLog('thumb 20')"><img src="images/image_20.jpg"></li>
+		            <li onClick="consoleLog('thumb 21')"><img src="images/image_21.jpg"></li>
+		            <li onClick="consoleLog('thumb 22')"><img src="images/image_22.jpg"></li>
+		            <li onClick="consoleLog('thumb 23')"><img src="images/image_23.jpg"></li>
+		            <li onClick="consoleLog('thumb 24')"><img src="images/image_24.jpg"></li>
+					<li onClick="consoleLog('thumb 25')"><img src="images/image_25.jpg"></li>
+					<li onClick="consoleLog('thumb 26')"><img src="images/image_26.jpg"></li>
+					<li onClick="consoleLog('thumb 27')"><img src="images/image_27.jpg"></li>
+					<li onClick="consoleLog('thumb 28')"><img src="images/image_28.jpg"></li>
+					<li onClick="consoleLog('thumb 29')"><img src="images/image_29.jpg"></li>
+					<li onClick="consoleLog('thumb 30')"><img src="images/image_30.jpg"></li>
+					<li onClick="consoleLog('thumb 31')"><img src="images/image_31.jpg"></li>
+					<li onClick="consoleLog('thumb 32')"><img src="images/image_32.jpg"></li>
+					<li onClick="consoleLog('thumb 33')"><img src="images/image_33.jpg"></li>
+					<li onClick="consoleLog('thumb 34')"><img src="images/image_34.jpg"></li>
+					<li onClick="consoleLog('thumb 35')"><img src="images/image_35.jpg"></li>
+					<li onClick="consoleLog('thumb 36')"><img src="images/image_36.jpg"></li>
+					<li onClick="consoleLog('thumb 37')"><img src="images/image_37.jpg"></li>
+					<li onClick="consoleLog('thumb 38')"><img src="images/image_38.jpg"></li>
+					<li onClick="consoleLog('thumb 39')"><img src="images/image_39.jpg"></li>
+					<li onClick="consoleLog('thumb 40')"><img src="images/image_40.jpg"></li>
+					<li onClick="consoleLog('thumb 41')"><img src="images/image_41.jpg"></li>
+					<li onClick="consoleLog('thumb 42')"><img src="images/image_42.jpg"></li>
+		            
+		        </ul>
+		    </div>
+
+	        <div class="cf" style="margin-top: 20px">External controlls: 
+        		<div id="extBwdButton_1" class="myExtButton extButton" style="margin-right: 10px;"> &#8592; </div>
+        		<div id="extFwdButton_1" class="myExtButton extButton" style="margin-right: 10px;"> &#8594; </div> 
+	        </div>
+	        <div style="margin-top: 10px;" class="cf scrollTo">
+        		
+        		<div style="width: 120px; float: left">scrollTo thumb: </div>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: 'first', triggerClick: true});">[first]</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: 4, triggerClick: true});">[4]</a> 
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: 8, triggerClick: true, thumbPos: 'last'});">[8 last]</a> 
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: 8, triggerClick: true, thumbPos: 'middle'});">[8 middle]</a> 
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: 8, triggerClick: true, thumbPos: 'first'});">[8 first]</a> 
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: 12, triggerClick: true});">[12]</a> 
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: 'last', triggerClick: true});">[last]</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: 'random', triggerClick: true});">[random]</a>
+        		
+        		<br><div style="width: 120px; clear: both; float: left">scrollTo %: </div>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: '20%', triggerClick: true});">[20%]</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: '50%', triggerClick: true, thumbPos: 'last'});">[50% last]</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: '50%', triggerClick: true, thumbPos: 'middle'});">[50% middle]</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: '50%', triggerClick: true, thumbPos: 'first'});">[50% first]</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: '80%', triggerClick: true});">[80%]</a>
+        		
+        		<br><div style="width: 120px; clear: both; float: left">scrollTo px: </div>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: '200px', triggerClick: true, thumbPos: 'first'});">[200px first]</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: '800px', triggerClick: true, thumbPos: 'last'});">[800px last]</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: '800px', triggerClick: true, thumbPos: 'middle'});">[800px middle]</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: '800px', triggerClick: true, thumbPos: 'first'});">[800px first]</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollTo', {thumb: '1400px', triggerClick: true});">[1400px]</a>
+        		
+        		<br><div style="width: 120px; clear: both; float: left">scrollBy %: </div>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollBy', '20%');">[20%]</a>
+				<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollBy', '-20%');">[-20%]</a>
+				<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollBy', '100%');">[100%]</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollBy', '-100%');">[-100%]</a>
+        		
+        		<br><div style="width: 120px; clear: both; float: left">scrollBy px: </div>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollBy', '200px');">[200px]</a>
+				<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollBy', '-200px');">[-200px]</a>
+				<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollBy', '500px');">[500px]</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('scrollBy', '-500px');">[-500px]</a>
+
+        		<br><div style="width: 120px; clear: both; float: left">Toggle width: </div>
+        		<a href="javascript: void(0)" onclick="$('#slider1').stop(true, false).animate({'width': 47})">47px</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').stop(true, false).animate({'width': 200})">200px</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').stop(true, false).animate({'width': 500})">500px</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').stop(true, false).animate({'width': 800})">800px</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').stop(true, false).animate({'width': $(window).width() - 40})">window width - 40</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').stop(true, false).animate({'width': '50%'})">50%</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').stop(true, false).animate({'width': '80%'})">80%</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').stop(true, false).animate({'width': '100%'})">100%</a>
+        		
+				<br><div style="width: 120px; clear: both; float: left">Handle thumbs: </div>
+				<script>var rndNum = function(a,b){return Math.floor(Math.random()*(b-a+1)+a);};</script>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('prependThumb', 'images/image_'+rndNum(10,42)+'.jpg', null, function(el, no){$('#slider1').axZmThumbSlider('scrollTo', no)});">prependThumb</a>
+        		<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('appendThumb', 'images/image_'+rndNum(10,42)+'.jpg', null, function(el, no){$('#slider1').axZmThumbSlider('scrollTo', no)});">appendThumb</a>
+	        	<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('removeThumb', 'last');">removeThumb (last)</a>
+	        	<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('removeThumb', 'first');">removeThumb (first)</a> 
+	        	<br><div style="width: 120px; clear: both; float: left">&zwj;</div>
+	        	<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('insertThumbAfter', 'images/image_'+rndNum(10,42)+'.jpg', null, 1, function(el, no){$('#slider1').axZmThumbSlider('scrollTo', no)});">insertThumbAfter (1)</a>
+	        	<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('insertThumbBefore', 'images/image_'+rndNum(10,42)+'.jpg', null, 3, function(el, no){$('#slider1').axZmThumbSlider('scrollTo', no)});">insertThumbBefore (3)</a>
+	        	<a href="javascript: void(0)" onclick="$('#slider1').axZmThumbSlider('removeAllThumbs');">removeAllThumbs</a>
+	        	</div>
+	        	
+	        	<div style="width: 580px; padding: 1px 10px 1px 10px; background-color: #FDFDFD; margin-top: 20px;">
+	        		<p>All methods except getters can be chained;
+	        		some methods like "appendThumb" have also callbacks 
+	        		which arguments are referencing added thumb;
+	        		</p>	        
+	        	</div>
+  
+
+			
+	         <script type="text/javascript">
+	                $('#slider1').axZmThumbSlider({
+	                    btnBwdObj: $('#extBwdButton_1'),    
+	                    btnFwdObj: $('#extFwdButton_1'),
+	                    thumbLiStyle: {
+                    		//backgroundSize: 'contain', //contain, cover
+                    		width: 90, 
+                    		height: 120, 
+                    		marginBottom: 7
+	                    },
+	                    wrapStyle: {backgroundColor: '#FFFFFF'},
+	                    debugNumbers: true,
+	                    scrollbar: true,
+						firstThumb: 11, 
+						firstThumbPos: 'middle', 
+						firstThumbTriggerClick:	false, 
+						firstThumbHighlight: true 
+	                });		
+	         </script>
+	         
+	    </div>
+	    
+		<div class="cf sliderExampleCont" style="float: left;"> 
+			<h2>Horizontal slider with fixed width<br /> and nothing to slide inside</h2>
+	        <div id="slider1a" style="width: 600px;">
+	            <ul>
+					<li onClick="consoleLog('thumb 28')"><img src="images/image_28.jpg"></li>
+					<li onClick="consoleLog('thumb 29')"><img src="images/image_29.jpg"></li>
+					<li onClick="consoleLog('thumb 30')"><img src="images/image_30.jpg"></li>
+	            </ul>
+	        </div>
+	        <p>If no height of the element is set the plugin will try to set it instantly 
+	        <br>and complain about it in console if available.</p>
+	        <script type="text/javascript">
+				$('#slider1a').axZmThumbSlider({
+					wrapStyle: {backgroundColor: '#FFFFFF'}
+				});
+			</script>
+		</div>
+
+		<div class="cf sliderExampleCont" style="float: left;"> 
+	        <h2>Horiszontal slider without buttons,<br />custom scrollbar and wraped by other element</h2>
+	        <div style="width: 570px; padding: 5px 10px 5px 10px; background: #7A6B6B; border: #594B4B 1px solid; border-radius:10px;">
+		        <div id="slider2a" style="position: relative; width: 100%; height: 135px;">
+		            <ul>
+			            <li onClick="consoleLog('thumb 17')"><img src="images/image_17.jpg"></li>
+			            <li onClick="consoleLog('thumb 18')"><img src="images/image_18.jpg"></li>
+			            <li onClick="consoleLog('thumb 19')"><img src="images/image_19.jpg"></li>
+			            <li onClick="consoleLog('thumb 20')"><img src="images/image_20.jpg"></li>
+			            <li onClick="consoleLog('thumb 21')"><img src="images/image_21.jpg"></li>
+			            <li onClick="consoleLog('thumb 22')"><img src="images/image_22.jpg"></li>
+			            <li onClick="consoleLog('thumb 23')"><img src="images/image_23.jpg"></li>
+			            <li onClick="consoleLog('thumb 24')"><img src="images/image_24.jpg"></li>
+						<li onClick="consoleLog('thumb 25')"><img src="images/image_25.jpg"></li>
+						<li onClick="consoleLog('thumb 26')"><img src="images/image_26.jpg"></li>
+						<li onClick="consoleLog('thumb 27')"><img src="images/image_27.jpg"></li>
+						<li onClick="consoleLog('thumb 28')"><img src="images/image_28.jpg"></li>
+						<li onClick="consoleLog('thumb 29')"><img src="images/image_29.jpg"></li>
+						<li onClick="consoleLog('thumb 30')"><img src="images/image_30.jpg"></li>
+						<li onClick="consoleLog('thumb 31')"><img src="images/image_31.jpg"></li>
+						<li onClick="consoleLog('thumb 32')"><img src="images/image_32.jpg"></li>
+						<li onClick="consoleLog('thumb 33')"><img src="images/image_33.jpg"></li>
+						<li onClick="consoleLog('thumb 34')"><img src="images/image_34.jpg"></li>
+						<li onClick="consoleLog('thumb 35')"><img src="images/image_35.jpg"></li>
+						<li onClick="consoleLog('thumb 36')"><img src="images/image_36.jpg"></li>
+						<li onClick="consoleLog('thumb 37')"><img src="images/image_37.jpg"></li>
+						<li onClick="consoleLog('thumb 38')"><img src="images/image_38.jpg"></li>
+		            </ul>
+		        </div>
+	        </div>
+	        
+	        <script type="text/javascript">
+	            $('#slider2a').axZmThumbSlider({
+ 					btn: false,
+ 					wrapStyle: {borderTopWidth: 0},
+ 					scrollbar: true,
+ 					scrollbarClass: 'axZmThumbSlider_scrollbar_thin',
+ 					scrollbarContainerStyle: {margin: 0},
+ 					scrollbarOpacity: 1,
+ 					scrollbarIdleOpacity: 1,
+ 					thumbLiStyle: {backgroundColor: '#381919', borderColor: '#000000'}
+	            }); 
+			</script>
+		</div>
+		
+		<div class="cf sliderExampleCont" style="float: left;"> 
+	        <h2>Simple slider, no mouse scroll, scrollBy: 3</h2>
+	       
+		    <div id="slider2b" style="position: relative; width: 537px; height: 135px;">
+		        <ul>
+					<li onClick="consoleLog('thumb 33')"><img src="images/image_33.jpg"></li>
+					<li onClick="consoleLog('thumb 34')"><img src="images/image_34.jpg"></li>
+					<li onClick="consoleLog('thumb 35')"><img src="images/image_35.jpg"></li>
+					<li onClick="consoleLog('thumb 36')"><img src="images/image_36.jpg"></li>
+					<li onClick="consoleLog('thumb 37')"><img src="images/image_37.jpg"></li>
+					<li onClick="consoleLog('thumb 38')"><img src="images/image_38.jpg"></li>
+					<li onClick="consoleLog('thumb 39')"><img src="images/image_39.jpg"></li>
+					<li onClick="consoleLog('thumb 40')"><img src="images/image_40.jpg"></li>
+					<li onClick="consoleLog('thumb 41')"><img src="images/image_41.jpg"></li>
+					<li onClick="consoleLog('thumb 42')"><img src="images/image_42.jpg"></li>
+		        </ul>
+		    </div>
+	        
+	        <script type="text/javascript">
+	            $('#slider2b').axZmThumbSlider({
+ 					scrollBy: 3,
+ 					smoothMove: 6,
+ 					quickerStop: true,
+ 					pressScrollSnap: true,
+ 					btn: true,
+ 					btnClass: 'axZmThumbSlider_button_new',
+					btnLeftText: null, 
+					btnRightText: null, 
+					btnTopText: null, 
+					btnBottomText: null,
+					mouseWheelScrollBy: null,
+ 					wrapStyle: {borderTopWidth: 0, borderBottomWidth: 0},
+ 					scrollbar: false,
+ 					thumbLiStyle: {
+                    	width: 90, 
+                    	height: 120, 
+                    	marginBottom: 7
+	                }
+ 				 }); 
+			</script>		
+		</div>
+		
+		<div class="cf sliderExampleCont" style="float: left;"> 
+        	<h2>Simple slider with mouseFlowMode enabled</h2>
+       
+		    <div id="slider2c" style="position: relative; width: 600px; height: 135px;">
+		        <ul>
+			        <li onClick="consoleLog('thumb 10')"><img src="images/image_10.jpg"></li>
+			        <li onClick="consoleLog('thumb 11')"><img src="images/image_11.jpg"></li>
+			        <li onClick="consoleLog('thumb 12')"><img src="images/image_12.jpg"></li>
+			        <li onClick="consoleLog('thumb 13')"><img src="images/image_13.jpg"></li>
+			        <li onClick="consoleLog('thumb 14')"><img src="images/image_14.jpg"></li>
+			        <li onClick="consoleLog('thumb 15')"><img src="images/image_15.jpg"></li>
+			        <li onClick="consoleLog('thumb 16')"><img src="images/image_16.jpg"></li>
+			        <li onClick="consoleLog('thumb 17')"><img src="images/image_17.jpg"></li>
+			        <li onClick="consoleLog('thumb 18')"><img src="images/image_18.jpg"></li>
+			        <li onClick="consoleLog('thumb 19')"><img src="images/image_19.jpg"></li>
+			        <li onClick="consoleLog('thumb 20')"><img src="images/image_20.jpg"></li>
+			        <li onClick="consoleLog('thumb 21')"><img src="images/image_21.jpg"></li>
+			        <li onClick="consoleLog('thumb 22')"><img src="images/image_22.jpg"></li>
+			        <li onClick="consoleLog('thumb 23')"><img src="images/image_23.jpg"></li>
+			        <li onClick="consoleLog('thumb 24')"><img src="images/image_24.jpg"></li>
+					<li onClick="consoleLog('thumb 25')"><img src="images/image_25.jpg"></li>
+					<li onClick="consoleLog('thumb 26')"><img src="images/image_26.jpg"></li>
+		        </ul>
+		    </div>
+	        
+	        <script type="text/javascript">
+	            $('#slider2c').axZmThumbSlider({
+ 					btn: false,
+					mouseWheelScrollBy: null,
+ 					wrapStyle: {borderTopWidth: 0, borderBottomWidth: 0},
+ 					scrollbar: false,
+ 					mouseFlowMode: true,
+ 					mouseFlowMargin: 35,
+ 					wrapStyle: {backgroundColor: '#FFFFFF'}
+ 				 }); 
+			</script>			
+		
+		</div>
+		
+		<div class="cf sliderExampleCont" style="clear: both; margin-right: 10px;"> 
+	        <h2 style="margin-left: 20px">Responsive horiszontal slider width 100%</h2>
+	        <div style="background-color: #FFFFFF; padding-top: 5px; padding-bottom: 15px; border-radius: 5px">
+		        <div id="slider2" style="position: relative; height: 140px;">
+		            <ul>
+			            <li onClick="consoleLog('thumb 1')"><img src="images/image_01.jpg"></li>
+			            <li onClick="consoleLog('thumb 2')"><img src="images/image_02.jpg"></li>
+			            <li onClick="consoleLog('thumb 3')"><img src="images/image_03.jpg"></li>
+			            <li onClick="consoleLog('thumb 4')"><img src="images/image_04.jpg"></li>
+			            <li onClick="consoleLog('thumb 5')"><img src="images/image_05.jpg"></li>
+			            <li onClick="consoleLog('thumb 6')"><img src="images/image_06.jpg"></li>
+			            <li onClick="consoleLog('thumb 7')"><img src="images/image_07.jpg"></li>
+			            <li onClick="consoleLog('thumb 8')"><img src="images/image_08.jpg"></li>
+			            <li onClick="consoleLog('thumb 9')"><img src="images/image_09.jpg"></li>
+			            <li onClick="consoleLog('thumb 10')"><img src="images/image_10.jpg"></li>
+			            <li onClick="consoleLog('thumb 11')"><img src="images/image_11.jpg"></li>
+			            <li onClick="consoleLog('thumb 12')"><img src="images/image_12.jpg"></li>
+			            <li onClick="consoleLog('thumb 13')"><img src="images/image_13.jpg"></li>
+			            <li onClick="consoleLog('thumb 14')"><img src="images/image_14.jpg"></li>
+			            <li onClick="consoleLog('thumb 15')"><img src="images/image_15.jpg"></li>
+			            <li onClick="consoleLog('thumb 16')"><img src="images/image_16.jpg"></li>
+			            <li onClick="consoleLog('thumb 17')"><img src="images/image_17.jpg"></li>
+			            <li onClick="consoleLog('thumb 18')"><img src="images/image_18.jpg"></li>
+			            <li onClick="consoleLog('thumb 19')"><img src="images/image_19.jpg"></li>
+			            <li onClick="consoleLog('thumb 20')"><img src="images/image_20.jpg"></li>
+			            <li onClick="consoleLog('thumb 21')"><img src="images/image_21.jpg"></li>
+			            <li onClick="consoleLog('thumb 22')"><img src="images/image_22.jpg"></li>
+			            <li onClick="consoleLog('thumb 23')"><img src="images/image_23.jpg"></li>
+			            <li onClick="consoleLog('thumb 24')"><img src="images/image_24.jpg"></li>
+						<li onClick="consoleLog('thumb 25')"><img src="images/image_25.jpg"></li>
+						<li onClick="consoleLog('thumb 26')"><img src="images/image_26.jpg"></li>
+						<li onClick="consoleLog('thumb 27')"><img src="images/image_27.jpg"></li>
+						<li onClick="consoleLog('thumb 28')"><img src="images/image_28.jpg"></li>
+						<li onClick="consoleLog('thumb 29')"><img src="images/image_29.jpg"></li>
+						<li onClick="consoleLog('thumb 30')"><img src="images/image_30.jpg"></li>
+						<li onClick="consoleLog('thumb 31')"><img src="images/image_31.jpg"></li>
+						<li onClick="consoleLog('thumb 32')"><img src="images/image_32.jpg"></li>
+						<li onClick="consoleLog('thumb 33')"><img src="images/image_33.jpg"></li>
+						<li onClick="consoleLog('thumb 34')"><img src="images/image_34.jpg"></li>
+						<li onClick="consoleLog('thumb 35')"><img src="images/image_35.jpg"></li>
+						<li onClick="consoleLog('thumb 36')"><img src="images/image_36.jpg"></li>
+						<li onClick="consoleLog('thumb 37')"><img src="images/image_37.jpg"></li>
+						<li onClick="consoleLog('thumb 38')"><img src="images/image_38.jpg"></li>
+						<li onClick="consoleLog('thumb 39')"><img src="images/image_39.jpg"></li>
+						<li onClick="consoleLog('thumb 40')"><img src="images/image_40.jpg"></li>
+						<li onClick="consoleLog('thumb 41')"><img src="images/image_41.jpg"></li>
+						<li onClick="consoleLog('thumb 42')"><img src="images/image_42.jpg"></li>
+		            </ul>
+		        </div>
+	        </div>
+	        
+	        <script type="text/javascript">
+	            $('#slider2').axZmThumbSlider({
+ 					btnClass: 'axZmThumbSlider_button_new',
+					btnLeftText: null, 
+					btnRightText: null, 
+					btnTopText: null, 
+					btnBottomText: null,
+					wrapClass: 'axZmThumbSlider_wrap_custom',
+					scrollbar: true,
+					scrollbarMargin: 150,
+					scrollbarOffset: 10,
+					scrollbarTrackStyle: {borderRadius: 10}
+	            }); 
+			</script>
+		
+		
+		</div>		
+		
+		<div class="cf sliderExampleCont" style="float: left; min-width: 728px"> 
+        	<h2>Vertical sliders with fixed height<br />scrollbar left or right</h2>
+	        <div class="cf" style="height: 420px;">
+		        <div id="slider3" style="height: 400px; width: 150px; position: absolute; left: 20px;">
+		            <ul>
+			            <li onClick="consoleLog('thumb 5')"><img src="images/image_05.jpg"></li>
+			            <li onClick="consoleLog('thumb 6')"><img src="images/image_06.jpg"></li>
+			            <li onClick="consoleLog('thumb 7')"><img src="images/image_07.jpg"></li>
+			            <li onClick="consoleLog('thumb 8')"><img src="images/image_08.jpg"></li>
+			            <li onClick="consoleLog('thumb 9')"><img src="images/image_09.jpg"></li>
+			            <li onClick="consoleLog('thumb 10')"><img src="images/image_10.jpg"></li>
+			            <li onClick="consoleLog('thumb 11')"><img src="images/image_11.jpg"></li>
+			            <li onClick="consoleLog('thumb 12')"><img src="images/image_12.jpg"></li>
+			            <li onClick="consoleLog('thumb 13')"><img src="images/image_13.jpg"></li>
+			            <li onClick="consoleLog('thumb 14')"><img src="images/image_14.jpg"></li>
+			            <li onClick="consoleLog('thumb 15')"><img src="images/image_15.jpg"></li>
+			            <li onClick="consoleLog('thumb 16')"><img src="images/image_16.jpg"></li>
+			            <li onClick="consoleLog('thumb 17')"><img src="images/image_17.jpg"></li>
+			            <li onClick="consoleLog('thumb 18')"><img src="images/image_18.jpg"></li>
+			            <li onClick="consoleLog('thumb 19')"><img src="images/image_19.jpg"></li>
+			            <li onClick="consoleLog('thumb 20')"><img src="images/image_20.jpg"></li>
+			            <li onClick="consoleLog('thumb 21')"><img src="images/image_21.jpg"></li>
+			            <li onClick="consoleLog('thumb 22')"><img src="images/image_22.jpg"></li>
+			            <li onClick="consoleLog('thumb 23')"><img src="images/image_23.jpg"></li>
+			            <li onClick="consoleLog('thumb 24')"><img src="images/image_24.jpg"></li>
+						<li onClick="consoleLog('thumb 25')"><img src="images/image_25.jpg"></li>
+						<li onClick="consoleLog('thumb 26')"><img src="images/image_26.jpg"></li>
+						<li onClick="consoleLog('thumb 27')"><img src="images/image_27.jpg"></li>
+						<li onClick="consoleLog('thumb 28')"><img src="images/image_28.jpg"></li>
+						<li onClick="consoleLog('thumb 29')"><img src="images/image_29.jpg"></li>
+						<li onClick="consoleLog('thumb 30')"><img src="images/image_30.jpg"></li>
+						<li onClick="consoleLog('thumb 31')"><img src="images/image_31.jpg"></li>
+						<li onClick="consoleLog('thumb 32')"><img src="images/image_32.jpg"></li>
+						<li onClick="consoleLog('thumb 33')"><img src="images/image_33.jpg"></li>
+						<li onClick="consoleLog('thumb 34')"><img src="images/image_34.jpg"></li>
+						<li onClick="consoleLog('thumb 35')"><img src="images/image_35.jpg"></li>
+						<li onClick="consoleLog('thumb 36')"><img src="images/image_36.jpg"></li>
+		            </ul>
+		        </div>
+
+		        <script type="text/javascript">
+					$('#slider3').axZmThumbSlider({
+						orientation: 'vertical',
+						btnClass: 'axZmThumbSlider_button_new',
+						btnLeftText: null, 
+						btnRightText: null, 
+						btnTopText: null, 
+						btnBottomText: null,
+						wrapStyle: {borderRightWidth: 0, borderLeftWidth: 0},
+						scrollbar: true,
+						scrollbarMargin: 50
+					});
+				</script>
+			
+		        <div id="slider3a" style="height: 400px; width: 150px; position: absolute; left: 210px">
+		            <ul>
+			            <li onClick="consoleLog('thumb 5')"><img src="images/image_05.jpg"></li>
+			            <li onClick="consoleLog('thumb 6')"><img src="images/image_06.jpg"></li>
+			            <li onClick="consoleLog('thumb 7')"><img src="images/image_07.jpg"></li>
+			            <li onClick="consoleLog('thumb 8')"><img src="images/image_08.jpg"></li>
+			            <li onClick="consoleLog('thumb 9')"><img src="images/image_09.jpg"></li>
+			            <li onClick="consoleLog('thumb 10')"><img src="images/image_10.jpg"></li>
+			            <li onClick="consoleLog('thumb 11')"><img src="images/image_11.jpg"></li>
+			            <li onClick="consoleLog('thumb 12')"><img src="images/image_12.jpg"></li>
+			            <li onClick="consoleLog('thumb 13')"><img src="images/image_13.jpg"></li>
+			            <li onClick="consoleLog('thumb 14')"><img src="images/image_14.jpg"></li>
+			            <li onClick="consoleLog('thumb 15')"><img src="images/image_15.jpg"></li>
+			            <li onClick="consoleLog('thumb 16')"><img src="images/image_16.jpg"></li>
+			            <li onClick="consoleLog('thumb 17')"><img src="images/image_17.jpg"></li>
+			            <li onClick="consoleLog('thumb 18')"><img src="images/image_18.jpg"></li>
+			            <li onClick="consoleLog('thumb 19')"><img src="images/image_19.jpg"></li>
+			            <li onClick="consoleLog('thumb 20')"><img src="images/image_20.jpg"></li>
+			            <li onClick="consoleLog('thumb 21')"><img src="images/image_21.jpg"></li>
+			            <li onClick="consoleLog('thumb 22')"><img src="images/image_22.jpg"></li>
+			            <li onClick="consoleLog('thumb 23')"><img src="images/image_23.jpg"></li>
+			            <li onClick="consoleLog('thumb 24')"><img src="images/image_24.jpg"></li>
+						<li onClick="consoleLog('thumb 25')"><img src="images/image_25.jpg"></li>
+						<li onClick="consoleLog('thumb 26')"><img src="images/image_26.jpg"></li>
+						<li onClick="consoleLog('thumb 27')"><img src="images/image_27.jpg"></li>
+						<li onClick="consoleLog('thumb 28')"><img src="images/image_28.jpg"></li>
+						<li onClick="consoleLog('thumb 29')"><img src="images/image_29.jpg"></li>
+						<li onClick="consoleLog('thumb 30')"><img src="images/image_30.jpg"></li>
+						<li onClick="consoleLog('thumb 31')"><img src="images/image_31.jpg"></li>
+						<li onClick="consoleLog('thumb 32')"><img src="images/image_32.jpg"></li>
+						<li onClick="consoleLog('thumb 33')"><img src="images/image_33.jpg"></li>
+						<li onClick="consoleLog('thumb 34')"><img src="images/image_34.jpg"></li>
+						<li onClick="consoleLog('thumb 35')"><img src="images/image_35.jpg"></li>
+						<li onClick="consoleLog('thumb 36')"><img src="images/image_36.jpg"></li>
+		            </ul>
+		        </div>
+	        
+		        <script type="text/javascript">
+					$('#slider3a').axZmThumbSlider({
+						orientation: 'vertical',
+						btnClass: 'axZmThumbSlider_button_new',
+						btnLeftText: null, 
+						btnRightText: null, 
+						btnTopText: null, 
+						btnBottomText: null,
+						wrapStyle: {borderRightWidth: 0, borderLeftWidth: 0},
+						scrollbar: true,
+						scrollbarStyle: {left: -20, right: ''},
+						scrollbarMargin: 50
+					});
+				</script>
+				
+ 		        <div id="slider3b" style="height: 400px; width: 150px; position: absolute; left: 390px">
+		            <ul>
+			            <li onClick="consoleLog('thumb 5')"><img src="images/image_05.jpg"></li>
+			            <li onClick="consoleLog('thumb 6')"><img src="images/image_06.jpg"></li>
+			            <li onClick="consoleLog('thumb 7')"><img src="images/image_07.jpg"></li>
+			            <li onClick="consoleLog('thumb 8')"><img src="images/image_08.jpg"></li>
+			            <li onClick="consoleLog('thumb 9')"><img src="images/image_09.jpg"></li>
+			            <li onClick="consoleLog('thumb 10')"><img src="images/image_10.jpg"></li>
+			            <li onClick="consoleLog('thumb 11')"><img src="images/image_11.jpg"></li>
+			            <li onClick="consoleLog('thumb 12')"><img src="images/image_12.jpg"></li>
+			            <li onClick="consoleLog('thumb 13')"><img src="images/image_13.jpg"></li>
+			            <li onClick="consoleLog('thumb 14')"><img src="images/image_14.jpg"></li>
+			            <li onClick="consoleLog('thumb 15')"><img src="images/image_15.jpg"></li>
+			            <li onClick="consoleLog('thumb 16')"><img src="images/image_16.jpg"></li>
+			            <li onClick="consoleLog('thumb 17')"><img src="images/image_17.jpg"></li>
+			            <li onClick="consoleLog('thumb 18')"><img src="images/image_18.jpg"></li>
+			            <li onClick="consoleLog('thumb 19')"><img src="images/image_19.jpg"></li>
+			            <li onClick="consoleLog('thumb 20')"><img src="images/image_20.jpg"></li>
+			            <li onClick="consoleLog('thumb 21')"><img src="images/image_21.jpg"></li>
+			            <li onClick="consoleLog('thumb 22')"><img src="images/image_22.jpg"></li>
+			            <li onClick="consoleLog('thumb 23')"><img src="images/image_23.jpg"></li>
+			            <li onClick="consoleLog('thumb 24')"><img src="images/image_24.jpg"></li>
+						<li onClick="consoleLog('thumb 25')"><img src="images/image_25.jpg"></li>
+						<li onClick="consoleLog('thumb 26')"><img src="images/image_26.jpg"></li>
+						<li onClick="consoleLog('thumb 27')"><img src="images/image_27.jpg"></li>
+						<li onClick="consoleLog('thumb 28')"><img src="images/image_28.jpg"></li>
+						<li onClick="consoleLog('thumb 29')"><img src="images/image_29.jpg"></li>
+						<li onClick="consoleLog('thumb 30')"><img src="images/image_30.jpg"></li>
+						<li onClick="consoleLog('thumb 31')"><img src="images/image_31.jpg"></li>
+						<li onClick="consoleLog('thumb 32')"><img src="images/image_32.jpg"></li>
+						<li onClick="consoleLog('thumb 33')"><img src="images/image_33.jpg"></li>
+						<li onClick="consoleLog('thumb 34')"><img src="images/image_34.jpg"></li>
+						<li onClick="consoleLog('thumb 35')"><img src="images/image_35.jpg"></li>
+						<li onClick="consoleLog('thumb 36')"><img src="images/image_36.jpg"></li>
+		            </ul>  
+		        </div>
+		        
+			    <script type="text/javascript">
+					$('#slider3b').axZmThumbSlider({
+						orientation: 'vertical',
+						scrollbar: true,
+						wrapStyle: {backgroundColor: '#FFFFFF'}
+					});
+				</script>
+				
+  		        <div id="slider3c" style="height: 400px; width: 135px; position: absolute; left: 560px">
+		            <ul>
+			            <li onClick="consoleLog('thumb 5')"><img src="images/image_05.jpg"></li>
+			            <li onClick="consoleLog('thumb 6')"><img src="images/image_06.jpg"></li>
+			            <li onClick="consoleLog('thumb 7')"><img src="images/image_07.jpg"></li>
+			            <li onClick="consoleLog('thumb 8')"><img src="images/image_08.jpg"></li>
+			            <li onClick="consoleLog('thumb 9')"><img src="images/image_09.jpg"></li>
+			            <li onClick="consoleLog('thumb 10')"><img src="images/image_10.jpg"></li>
+			            <li onClick="consoleLog('thumb 11')"><img src="images/image_11.jpg"></li>
+			            <li onClick="consoleLog('thumb 12')"><img src="images/image_12.jpg"></li>
+			            <li onClick="consoleLog('thumb 13')"><img src="images/image_13.jpg"></li>
+			            <li onClick="consoleLog('thumb 14')"><img src="images/image_14.jpg"></li>
+			            <li onClick="consoleLog('thumb 15')"><img src="images/image_15.jpg"></li>
+			            <li onClick="consoleLog('thumb 16')"><img src="images/image_16.jpg"></li>
+			            <li onClick="consoleLog('thumb 17')"><img src="images/image_17.jpg"></li>
+			            <li onClick="consoleLog('thumb 18')"><img src="images/image_18.jpg"></li>
+			            <li onClick="consoleLog('thumb 19')"><img src="images/image_19.jpg"></li>
+			            <li onClick="consoleLog('thumb 20')"><img src="images/image_20.jpg"></li>
+			            <li onClick="consoleLog('thumb 21')"><img src="images/image_21.jpg"></li>
+			            <li onClick="consoleLog('thumb 22')"><img src="images/image_22.jpg"></li>
+			            <li onClick="consoleLog('thumb 23')"><img src="images/image_23.jpg"></li>
+			            <li onClick="consoleLog('thumb 24')"><img src="images/image_24.jpg"></li>
+						<li onClick="consoleLog('thumb 25')"><img src="images/image_25.jpg"></li>
+						<li onClick="consoleLog('thumb 26')"><img src="images/image_26.jpg"></li>
+						<li onClick="consoleLog('thumb 27')"><img src="images/image_27.jpg"></li>
+						<li onClick="consoleLog('thumb 28')"><img src="images/image_28.jpg"></li>
+						<li onClick="consoleLog('thumb 29')"><img src="images/image_29.jpg"></li>
+						<li onClick="consoleLog('thumb 30')"><img src="images/image_30.jpg"></li>
+						<li onClick="consoleLog('thumb 31')"><img src="images/image_31.jpg"></li>
+						<li onClick="consoleLog('thumb 32')"><img src="images/image_32.jpg"></li>
+						<li onClick="consoleLog('thumb 33')"><img src="images/image_33.jpg"></li>
+						<li onClick="consoleLog('thumb 34')"><img src="images/image_34.jpg"></li>
+						<li onClick="consoleLog('thumb 35')"><img src="images/image_35.jpg"></li>
+						<li onClick="consoleLog('thumb 36')"><img src="images/image_36.jpg"></li>
+		            </ul>  
+		        </div>
+		        
+			    <script type="text/javascript">
+					$('#slider3c').axZmThumbSlider({
+						orientation: 'vertical',
+						scrollbar: false,
+						wrapStyle: {backgroundColor: '#FFFFFF'}
+					});
+				</script>
+			
+			</div>
+		
+		</div>
+		
+		<div class="cf sliderExampleCont" style="float: left; min-width: 728px; margin-left: 10px; margin-right: 10px;"> 
+	        <h2>Content Mode - vertical slider without thumbs<br />(experimental)</h2>
+		    <div id="slider4" style="width: 728px; height: 420px; position: relative;">
+				<h1>HTML Ipsum Presents</h1>
+						   
+				<p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+
+				<h2>Voilà - nested slider</h2>
+			    <div id="slider4_nested" style="position: relative; height: 135px;">
+			        <ul>
+			            <li onClick="consoleLog('thumb 1')"><img src="images/image_01.jpg"></li>
+			            <li onClick="consoleLog('thumb 2')"><img src="images/image_02.jpg"></li>
+			            <li onClick="consoleLog('thumb 3')"><img src="images/image_03.jpg"></li>
+			            <li onClick="consoleLog('thumb 4')"><img src="images/image_04.jpg"></li>
+			            <li onClick="consoleLog('thumb 5')"><img src="images/image_05.jpg"></li>
+			            <li onClick="consoleLog('thumb 6')"><img src="images/image_06.jpg"></li>
+			            <li onClick="consoleLog('thumb 7')"><img src="images/image_07.jpg"></li>
+			            <li onClick="consoleLog('thumb 8')"><img src="images/image_08.jpg"></li>
+			            <li onClick="consoleLog('thumb 9')"><img src="images/image_09.jpg"></li>
+			            <li onClick="consoleLog('thumb 10')"><img src="images/image_10.jpg"></li>
+			            <li onClick="consoleLog('thumb 11')"><img src="images/image_11.jpg"></li>
+			            <li onClick="consoleLog('thumb 12')"><img src="images/image_12.jpg"></li>
+			            <li onClick="consoleLog('thumb 13')"><img src="images/image_13.jpg"></li>
+			            <li onClick="consoleLog('thumb 14')"><img src="images/image_14.jpg"></li>
+			            <li onClick="consoleLog('thumb 15')"><img src="images/image_15.jpg"></li>
+			            <li onClick="consoleLog('thumb 16')"><img src="images/image_16.jpg"></li>
+			            <li onClick="consoleLog('thumb 17')"><img src="images/image_17.jpg"></li>
+			            <li onClick="consoleLog('thumb 18')"><img src="images/image_18.jpg"></li>
+			            <li onClick="consoleLog('thumb 19')"><img src="images/image_19.jpg"></li>
+			            <li onClick="consoleLog('thumb 20')"><img src="images/image_20.jpg"></li>
+			            <li onClick="consoleLog('thumb 21')"><img src="images/image_21.jpg"></li>
+			            <li onClick="consoleLog('thumb 22')"><img src="images/image_22.jpg"></li>
+			            <li onClick="consoleLog('thumb 23')"><img src="images/image_23.jpg"></li>
+			            <li onClick="consoleLog('thumb 24')"><img src="images/image_24.jpg"></li>
+						<li onClick="consoleLog('thumb 25')"><img src="images/image_25.jpg"></li>
+						<li onClick="consoleLog('thumb 26')"><img src="images/image_26.jpg"></li>
+						<li onClick="consoleLog('thumb 27')"><img src="images/image_27.jpg"></li>
+						<li onClick="consoleLog('thumb 28')"><img src="images/image_28.jpg"></li>
+						<li onClick="consoleLog('thumb 29')"><img src="images/image_29.jpg"></li>
+						<li onClick="consoleLog('thumb 30')"><img src="images/image_30.jpg"></li>
+						<li onClick="consoleLog('thumb 31')"><img src="images/image_31.jpg"></li>
+						<li onClick="consoleLog('thumb 32')"><img src="images/image_32.jpg"></li>
+						<li onClick="consoleLog('thumb 33')"><img src="images/image_33.jpg"></li>
+						<li onClick="consoleLog('thumb 34')"><img src="images/image_34.jpg"></li>
+						<li onClick="consoleLog('thumb 35')"><img src="images/image_35.jpg"></li>
+						<li onClick="consoleLog('thumb 36')"><img src="images/image_36.jpg"></li>
+						<li onClick="consoleLog('thumb 37')"><img src="images/image_37.jpg"></li>
+						<li onClick="consoleLog('thumb 38')"><img src="images/image_38.jpg"></li>
+						<li onClick="consoleLog('thumb 39')"><img src="images/image_39.jpg"></li>
+						<li onClick="consoleLog('thumb 40')"><img src="images/image_40.jpg"></li>
+						<li onClick="consoleLog('thumb 41')"><img src="images/image_41.jpg"></li>
+						<li onClick="consoleLog('thumb 42')"><img src="images/image_42.jpg"></li>
+			        </ul>
+			    </div>
+				
+				
+				<h2>Header Level 2</h2>
+						   
+				<ol>
+				   <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+				   <li>Aliquam tincidunt mauris eu risus.</li>
+				</ol>
+				
+				<ul>
+				   <li>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</li>
+				   <li>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</li>
+				   <li>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</li>
+				   <li>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</li>
+				</ul>
+
+				<blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
+				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>        
+        		 
+				<ul>
+				   <li>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</li>
+				   <li>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</li>
+				   <li>Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi.</li>
+				   <li>Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</li>
+				</ul>
+        	    
+			 
+				<ul>
+					<li><a href="#nowhere" title="Lorum ipsum dolor sit amet">Lorem</a></li>
+					<li><a href="#nowhere" title="Aliquam tincidunt mauris eu risus">Aliquam</a></li>
+					<li><a href="#nowhere" title="Morbi in sem quis dui placerat ornare">Morbi</a></li>
+					<li><a href="#nowhere" title="Praesent dapibus, neque id cursus faucibus">Praesent</a></li>
+					<li><a href="#nowhere" title="Pellentesque fermentum dolor">Pellentesque</a></li>
+				</ul>
+		 
+				Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+		    </div>
+      		
+	        <script type="text/javascript">
+	            $('#slider4').axZmThumbSlider({
+	                orientation: 'vertical',
+	                scrollbar: true
+	            });
+	        </script>	
+	        
+	        <script type="text/javascript">
+	            $('#slider4_nested').axZmThumbSlider({
+ 					btn: true,
+ 					btnClass: 'axZmThumbSlider_button_new',
+					btnLeftText: null, 
+					btnRightText: null, 
+					btnTopText: null, 
+					btnBottomText: null,
+					mouseWheelScrollBy: null,
+ 					wrapStyle: {borderTopWidth: 0, borderBottomWidth: 0},
+ 					scrollbar: false,
+ 					thumbLiStyle: {
+                    	width: 90, 
+                    	height: 120, 
+                    	marginBottom: 7
+	                }
+ 				 }); 
+			</script>
+		
+		</div>
+		
+		<style type="">
+			/*#slider5a li:nth-child(2):after{content:'\A'; white-space: pre-wrap;}*/
+		</style>
+		
+		<div class="cf sliderExampleCont" style="float: left; min-width: 728px"> 
+        	<h2>Vertical sliders with multiple columns<br />width || height can be responsive</h2>
+	        <div class="cf" style="height: 420px;">
+  		        <div id="slider5a" style="height: 420px; width: 728px; position: absolute;">
+		            <ul>
+			            <li onClick="consoleLog('thumb 5')"><img src="images/image_05.jpg"></li>
+			            <li onClick="consoleLog('thumb 6')"><img src="images/image_06.jpg"></li>
+			            <li onClick="consoleLog('thumb 7')"><img src="images/image_07.jpg"></li>
+			            <li onClick="consoleLog('thumb 8')"><img src="images/image_08.jpg"></li>
+			            <li onClick="consoleLog('thumb 9')"><img src="images/image_09.jpg"></li>
+			            <li onClick="consoleLog('thumb 10')"><img src="images/image_10.jpg"></li>
+			            <li onClick="consoleLog('thumb 11')"><img src="images/image_11.jpg"></li>
+			            <li onClick="consoleLog('thumb 12')"><img src="images/image_12.jpg"></li>
+			            <li onClick="consoleLog('thumb 13')"><img src="images/image_13.jpg"></li>
+			            <li onClick="consoleLog('thumb 14')"><img src="images/image_14.jpg"></li>
+			            <li onClick="consoleLog('thumb 15')"><img src="images/image_15.jpg"></li>
+			            <li onClick="consoleLog('thumb 16')"><img src="images/image_16.jpg"></li>
+			            <li onClick="consoleLog('thumb 17')"><img src="images/image_17.jpg"></li>
+			            <li onClick="consoleLog('thumb 18')"><img src="images/image_18.jpg"></li>
+			            <li onClick="consoleLog('thumb 19')"><img src="images/image_19.jpg"></li>
+			            <li onClick="consoleLog('thumb 20')"><img src="images/image_20.jpg"></li>
+			            <li onClick="consoleLog('thumb 21')"><img src="images/image_21.jpg"></li>
+			            <li onClick="consoleLog('thumb 22')"><img src="images/image_22.jpg"></li>
+			            <li onClick="consoleLog('thumb 23')"><img src="images/image_23.jpg"></li>
+			            <li onClick="consoleLog('thumb 24')"><img src="images/image_24.jpg"></li>
+						<li onClick="consoleLog('thumb 25')"><img src="images/image_25.jpg"></li>
+						<li onClick="consoleLog('thumb 26')"><img src="images/image_26.jpg"></li>
+						<li onClick="consoleLog('thumb 27')"><img src="images/image_27.jpg"></li>
+						<li onClick="consoleLog('thumb 28')"><img src="images/image_28.jpg"></li>
+						<li onClick="consoleLog('thumb 29')"><img src="images/image_29.jpg"></li>
+						<li onClick="consoleLog('thumb 30')"><img src="images/image_30.jpg"></li>
+						<li onClick="consoleLog('thumb 31')"><img src="images/image_31.jpg"></li>
+						<li onClick="consoleLog('thumb 32')"><img src="images/image_32.jpg"></li>
+						<li onClick="consoleLog('thumb 33')"><img src="images/image_33.jpg"></li>
+						<li onClick="consoleLog('thumb 34')"><img src="images/image_34.jpg"></li>
+						<li onClick="consoleLog('thumb 35')"><img src="images/image_35.jpg"></li>
+						<li onClick="consoleLog('thumb 36')"><img src="images/image_36.jpg"></li>
+		            </ul>  
+		        </div>
+		        
+			    <script type="text/javascript">
+					$('#slider5a').axZmThumbSlider({
+						orientation: 'vertical',
+						multicolumn: true,
+						scrollbar: true,
+						wrapStyle: {backgroundColor: '#FFFFFF'}
+					});
+				</script>
+			
+			</div>
+		
+		</div>
+
+		
+ 		<!-- documentation -->
+ 		<div style="clear: both; float: left; margin-top: 100px;"></div>
+		<h1 style="clear: both; display: block; ">Documentation</h1>
+ 
+        
+        <div class="cf" style="float: left; margin-left: 10px;"> 
+			<h2>Options</h2>
+			<p>$(selector).axZmThumbSlider(options);
+			</p>
+
+			<table class="optionsTable" >
+				<tbody>
+				
+					<tr><th>Option</th><th>Default</th><th>Description</th></tr>
+					
+					<tr><td>orientation</td><td> 'horizontal' </td><td> Orientation value, horizontal or vertical </td></tr>
+					<tr><td>multicolumn</td><td> false </td><td> If orientation is vertical enable multiple columns with thumbs </td></tr>
+					<tr><td>smoothMove</td><td> 12 </td><td> Smoothness of the scrolling </td></tr>
+					<tr><td>pressScrollSpeed</td><td> 6 </td><td> Max speed of movement while pressing on the buttons </td></tr>
+					<tr><td>pressScrollSnap</td><td> false </td><td> Snap to thumb after pressing on the buttons </td></tr>
+					<tr><td>pressScrollTime</td><td> 250 </td><td> Time ms if it is not clicked to start continuous stepless scroll </td></tr>
+					<tr><td>contentMode</td><td> false </td><td> Simple content scroller instead of thumbs (experimantal) </td></tr>
+					<tr><td>circularClickMode</td><td> false </td><td> Pressing on next, prev buttons will result into scrolling to next el and click on it instantly. It will however not result into visual endless loop, instead the fokus will be turned to first thumb when last is reached </td></tr>
+					<tr><td>liImgAsBack</td><td> true </td><td> Images insude li tags (thumbs) will be removed and put as background of the li element </td></tr>
+					<tr><td>randomize</td><td> false </td><td> Randomize order of thumbs on load, see also API methods for randomizing </td></tr>
+					<tr><td>firstThumb</td><td> 1 </td><td> Thumb to show at first </td></tr>
+					<tr><td>firstThumbPos</td><td> 'middle' </td><td> Default position within the slider (if possible), possible values: first, middle, last </td></tr>
+					<tr><td>firstThumbTriggerClick</td><td> false </td><td> Trigger click on firstThumb </td></tr>
+					<tr><td>firstThumbHighlight</td><td> false </td><td> Highlight firstThumb if firstThumbTriggerClick is not enabled </td></tr>
+					<tr><td>posOnClick</td><td> 'middle' </td><td> Scroll the thumb to some position within the slider, possible values: false, 'first', 'middle', 'last' </td></tr>
+					<tr><td>scrollBy</td><td> 'auto -1' </td>
+						<td> 	<ul>
+									<li>Integer - number of slides scrolled when clicked on the backward / forward button</li>
+									<li>Can be also 'auto' or expression with auto and integer as string, e.g. 'auto -1'</li>	
+									<li>String e.g. '50%' or '150px'</li>
+								</ul>
+						</td>
+					</tr>
+					
+					<tr><td>mouseWheelScrollBy</td><td> '20%' </td><td> Use moousewheel for scrolling, requires Brandon Aaron's mousewheel.js; integer - number thumbs; string - px or % value, e.g. '50px' or '20%'</td></tr>
+					<tr><td>debugNumbers</td><td> false </td><td> Adds numbers to the thumbs, css .axZmThumbSlider div.debugNumbers </td></tr>
+					<tr><td>mouseFlowMode</td><td> false </td><td> Slider position upon mouse position on the slider </td></tr>
+					<tr><td>mouseFlowMargin</td><td> 25 </td><td> Margin from left/right or top/bottom where mouse position for mouseFlowMode is not captured </td></tr>	
+					
+					<tr><td>thumbLiStyle</td><td> {} </td><td> Quickly overwrite thumb style (e.g. width and height) without changing css file or write inline styles </td></tr>
+					<tr><td>thumbImgStyle</td><td> {} </td><td> Can be applied when "liImgAsBack" option is disabled </td></tr>
+					
+					<tr><td>thumbLiSubClass</td><td>{mousehover: 'mousehover', selected: 'selected', first: 'first', last: 'last'}</td><td> Array like object representing thumb subclasses; you can disable by setting a value to false </td></tr>
+					
+					
+					
+					
+					<tr><td>ulClass</td><td> 'axZmThumbSlider' </td><td> Main class prefix for ul element </td></tr>
+					<tr><td>wrapClass</td><td> 'axZmThumbSlider_wrap' </td><td> Wrap class thumbs</td></tr>
+					<tr><td>contentClass</td><td> 'axZmThumbSlider_content' </td><td> Wrap class for contentMode </td></tr>
+					<tr><td>contentStyle<td> {} </td><td> Ver. 1.3+ Wrap style for contentMode </td></tr>
+					<tr><td>wrapStyle</td><td> {} </td><td> Quickly override styles for the wraper </td></tr>
+					<tr><td>outerWrapPosition</td><td> 'absolute' </td><td> Ver. 1.3+ If parent conainer has padding, setting this value to 'relative' will preserve it </td></tr>
+					
+					<tr><td>centerNoScroll</td><td> true </td><td> Center thumbnails in the slider when there is nothing to scroll </td></tr>
+					
+					<tr><td>btn</td><td> true </td><td> Enable buttons instantly </td></tr>
+					<tr><td>btnOver</td><td> false </td><td> 1.3+ Button is put over thumbs</td></tr>
+					<tr><td>btnHidden</td><td> false </td><td> 1.3+ Hide button if it is disabled</td></tr>
+					
+					<tr><td>btnClass</td><td> 'axZmThumbSlider_button' </td><td> Main class prefix for buttons </td></tr>
+					<tr><td>btnMargin</td><td> null </td><td> Distance from button to scroll area; this margin can be also set in CSS </td></tr>
+					<tr><td>btnBwdStyle</td><td> null </td><td> Quickly override css values of backword button instead of changing class </td></tr>
+					<tr><td>btnFwdStyle</td><td> null </td><td> Quickly override css values of forward button instead of changing class </td></tr>
+					
+					<tr style="text-decoration: line-through"><td>btnLeftText</td><td> '&#171;' </td><td> Text for backword button (horizontal orientation) </td></tr>
+					<tr style="text-decoration: line-through"><td>btnRightText</td><td> '&#187;' </td><td>  Text for forward button (horizontal orientation) </td></tr>
+					
+ 					<tr><td>btnBwdObj</td><td> null </td><td> External backword button jQuery element </td></tr>
+ 					<tr><td>btnFwdObj</td><td> null </td><td> External forward button jQuery element </td></tr>
+ 
+					<tr><td>scrollbar</td><td> false </td><td> Enable / disable scrollbar </td></tr>
+					<tr><td>scrollBarIndicator</td><td> false </td><td> If true no actions will be attached to track or scrollbar </td></tr>
+					<tr><td>scrollbarMinDim</td><td> 20 </td><td> Min bar width for horizontal / height for vertical slider </td></tr>
+					<tr><td>scrollbarMaxDim</td><td> null </td><td> Max bar width for horizontal / height for vertical slider </td></tr>
+		 			
+		 			<tr><td>scrollbarClass</td><td> 'axZmThumbSlider_scrollbar' </td><td> Scrollbar class </td></tr>
+		 			<tr><td>scrollbarMargin</td><td> null </td><td> Distance which shrinks the length of the scrollbar, can be set with css as well </td></tr>
+		 			<tr><td>scrollbarOffset</td><td> null </td><td> Offset of the scrollbar, can be set with css as well </td></tr>
+		 			<tr><td>scrollbarStyle</td><td> {} </td><td> Quickly overwrite position of the scrollbar </td></tr>
+		 			<tr><td>scrollbarContainerStyle</td><td> {} </td><td> Quickly set the margins of slider to fit buttons </td></tr>
+		 			<tr><td>scrollbarBarStyle</td><td> {} </td><td> Quickly set bar style (color, height, margin) </td></tr>
+		 			<tr><td>scrollbarTrackStyle</td><td> {} </td><td> Quickly set slidebar track style (color, height/width, margin) </td></tr>
+ 					
+ 					<tr><td>scrollbarOpacity</td><td> 0.85 </td><td> Opacity while doing something </td></tr>
+ 					<tr><td>scrollbarIdleOpacity</td><td> 0.35 </td><td> Opacity in idle state </td></tr>
+ 					<tr><td>scrollbarIdleTimeout</td><td> 350 </td><td> If scrollbarIdleOpacity is not set to 1, apply it after this ms value </td></tr>
+ 					<tr><td>scrollBarIdleFadeoutT</td><td> 200 </td><td> Fadeout time of the scrollbar </td></tr>
+ 					<tr><td>scrollBarMouseShowBindTo</td><td> 'both' </td><td> Bind mouseenter opacity handle functions to scrollbar itself or container, possible values: 'scrollBar', 'container', 'both' or false </td></tr>
+					
+					<tr><td>accVelocity</td><td> 45 </td><td> Acceleration velocity for touch devices </td></tr>
+					<tr><td>touchOpt</td><td> {smoothMove: 12, pressScrollSpeed: 6}</td><td> Override any options for touch devices, e.g. <code>touchOpt: {btn: false, scrollBarIndicator: true, scrollbarIdleOpacity: 0}</code> </td></tr>
+					
+				</tbody>
+			</table>
+	     
+	     </div>
+	     
+	     <div class="cf" style="float: left; margin-left: 10px; margin-right: 10px;"> 
+			<h2>Callbacks</h2>
+ 			<p>Usage same as options; let us know if you need other callbacks.
+			</p>
+	     	<table class="optionsTable">
+	     		<tbody>
+					<tr><th>Callback / Option</th><th>Default</th><th>Description</th></tr>
+	     			<tr><td>onPull</td><td> null </td><td> Function to execute after reached end or beginning of the slider, e.g. make a call to add other thumbs (see methods below)</td></tr>
+ 					<tr><td>holdPullPx</td><td> 50 </td><td> Min pixel to pull in either direction to trigger onPull </td></tr>
+ 					<tr><td>holdPullTime</td><td> 750 </td><td> Min time to pull in either direction to trigger onPull </td></tr>
+ 					<tr><td>onInit</td><td> null </td><td> Callback when plugin is created </td></tr>
+				</tbody>
+			</table>
+ 
+	     </div>
+	     
+	     <div class="cf" style="float: left; margin-left: 10px; margin-right: 10px;"> 
+	     	<h2>Methods</h2>
+			<p>$(selector).axZmThumbSlider(method, [arguments]); e.g. $('#slider1').axZmThumbSlider('scrollBy', '50px');
+			</p>
+			<table class="optionsTable methods">
+				<tbody>
+					<tr><th>Method</th><th>Description</th><th>Arguments</th></tr>
+					
+					<tr><td>stop</td><td> Stop initialized plugin </td><td> - </td></tr>
+					
+					<tr><td>run</td><td> Run initialized plugin </td><td> - </td></tr>
+					
+					<tr><td>destroy</td><td> Reward element to initial state </td><td> - </td></tr>
+					
+					<tr><td>rebuild</td><td> Destroy and rebuild plugin </td><td> - </td></tr>
+					
+					<tr><td>scrollBy</td><td> Scroll by a specified amount of pixels or prc </td>
+						<td>String, px or % value, e.g. '20px' or '50%'</td>
+					</tr>
+					
+					<tr><td>scrollTo</td><td> Scroll to specified thumb or position </td>
+						<td><ol>
+								<li>Options object:
+									<ul>
+										<li>thumb: integer or string; integer e.g. 3 will scroll to third thumb; string e.g. '120px' or '50%' will scroll to this specified location</li>
+										<li>thumbPos: string; if thumb is integer (scroll to some thumb), the target position within visible area, possible values: first, middle or last</li>
+										<li>noAnm: bool; if true scrollTo position will be reached immediately without any animation </li>
+										<li>triggerClick: bool; trigger click on the thumb </li>
+										<li>highlight: bool; only highlight thumb</li>
+									</ul>
+								</li>
+							</ol>
+							If agrument is not options object, then it will be interpreted as thumb, e.g. 
+							$('#slider1').axZmThumbSlider('scrollTo', {thumb: 7}); <br />
+							is same as <br />
+							$('#slider1').axZmThumbSlider('scrollTo', 7); 
+						</td>
+					</tr>
+					
+					<tr><td>appendContent</td><td> Append content if in contentMode </td><td>
+						<ol>
+							<li>Well formated html as string</li>
+							<li>Callback function</li>
+						</ol>
+					</td></tr>
+					
+					<tr><td>prependContent</td><td> Prepend content if in contentMode </td><td>
+						<ol>
+							<li>Well formated html as string</li>
+							<li>Callback function</li>
+						</ol>
+					</td></tr>
+					
+					
+					<tr><td>removeAllThumbs</td><td>Remove all thumbs</td><td>
+						<ol>
+							<li>Callback function</li>
+						</ol>	
+					</td></tr>
+					
+					<tr><td>removeThumb</td><td>Remove thumb</td><td>
+						<ol>
+							<li>Thumb number or selector, see also isThumb</li>
+							<li>Callback function</li>
+						</ol>	
+					</td></tr>
+					
+					<tr><td>appendThumb</td><td>Append thumb</td><td>
+						<ol>
+							<li>Thumb image path as tring, object or formated html as string</li>
+							<li>Optional click function</li>
+							<li>Optional callback function with first argument as jQuery reference to the appended element (thumb)  
+								and the second argument as thumb number
+							e.g.
+								<pre class='brush: js;'>
+								$('#slider1').axZmThumbSlider('appendThumb', 
+									'images/image_01.jpg', 
+									function(){
+										// Click event
+										alert('123');
+									}, 
+									function(el, no){
+										// Callback, after thumb added slide to it
+										$('#slider1').axZmThumbSlider('scrollTo', no);
+									}
+								); 
+								</pre>
+							</li>
+						</ol>	
+					</td></tr>
+					<tr><td>prependThumb</td><td>Prepend Thumb</td><td>
+						<ol>
+							<li>Thumb image path as tring, object or formated html as string</li>
+							<li>Optional click function</li>
+							<li>Optional callback function with first argument as jQuery reference to the prepended element (thumb)  
+								and the second argument as thumb number
+							</li>
+						</ol>	
+					</td></tr>
+					<tr><td>insertThumbAfter</td><td>Insert Thumb after some other thumb</td><td>
+						<ol>
+							<li>Thumb image path as tring, object or formated html as string</li>
+							<li>Optional click function</li>
+							<li>After as thumb number, selector, ...</li>
+							<li>Optional callback function with first argument as jQuery reference to the inserted element (thumb)  
+								and the second argument as thumb number
+							</li>
+						</ol>
+					</td></tr>
+					<tr><td>insertThumbBefore</td><td>Insert Thumb before some other thumb</td><td> 
+						<ol>
+							<li>Thumb image path as tring, object or formated html as string</li>
+							<li>Optional click function</li>
+							<li>Before as thumb number, selector, ...</li>
+							<li>Optional callback function with first argument as jQuery reference to the inserted element (thumb)  
+								and the second argument as thumb number
+							</li>
+						</ol>
+					
+					</td></tr>
+					
+					<tr><td>changeThumbSize</td><td>Dynamically change size of the thumbnails</td><td>
+						<ol>
+							<li>li: CSS style for li element</li>
+							<li>img: CSS style for image</li>
+							<li>size: Size of the container element (width or height); if 'auto' the size will be instantly determined</li>
+							<li>scrollTo: Specify if it should be scrolled to current selected thumb
+							e.g.
+								<pre class='brush: js;'>
+									$('#slider1').axZmThumbSlider('changeThumbSize', {
+										li: {width: 150, height: 150}, 
+										img: {maxHeight: '140px', maxHeight: '140px', height: '', width: ''}, 
+										size: 'auto',
+										scrollTo: true,
+										clb: null
+									}); 
+								</pre>
+							</li>
+							<li>clb: callback function</li>
+						</ol>	
+					</td></tr>
+					
+					<tr><td>unselect</td><td>Remove "selected" class from all thumbs</td><td> - </td></tr>
+					<tr><td>select</td><td>Select specified thumb</td><td> 
+						<ol>
+							<li>Thumb number or selector, see also isThumb</li>
+							<li>Bool - trigger click</li>
+						</ol>
+					</td></tr>
+					
+					<tr><td>getNumberThumbs</td><td>Returns number of currently loaded thumbs</td><td> - </td></tr>
+					
+					<tr><td>isThumb</td><td>Returns n - (thumb number) from passed argument;</td><td>
+						<ol>
+							<li>Argument can be just number to confirm it is there, selector or object</li>
+						</ol>
+					</td></tr>
+					<tr><td>getVisibleThumb</td><td>Returns number of thumb which is visible first</td><td>
+						<ol>
+							<li>If true returns thumb from right / bottom </li>
+						</ol>
+					</td></tr>
+					<tr><td>randomize</td><td> Shuffle thumbs within loader element </td><td> - </td></tr>
+					<tr><td>getUlEll</td><td> Returns scrolling content jQuery element (ul or div in contentMode) </td><td> - </td></tr>
+					
+					<tr><td>sortMap</td><td>Reorder thumbs in the slider upon data attribute value</td><td>
+						<ol>
+							<li>Object which maps the order, e.g. {1:3,2:1} which would mean, 
+							that at first place there will be thumb with specified data attribute equals to three, 
+							at second place thumb with data attribute equals to one</li>
+							<li>String: name of data attribute, e.g. data-number </li>
+							<li>Optional callback function </li>
+						</ol>
+					</td></tr>
+					
+					<tr><td>sortByData</td><td>Sort thumbnails by some data value</td><td>
+						<ol>
+							<li>Data name</li>
+							<li>Callback function</li>
+						</ol>		
+					</td></tr>
+					
+					<tr><td>triggerClick</td><td>Trigger click on an thumbnail</td><td>
+						<ol>
+							<li>Thumbnail</li>
+						</ol>		
+					</td></tr>
+					
+				</tbody>
+			</table>
+	     
+	     </div>
+		<script type="text/javascript">
+		$('.optionsTable:not(.methods) td:nth-child(2)').each(function(){
+ 			var txt = $.trim($(this).html());
+ 			if (txt == 'false' || txt == 'true'){
+ 				$(this).html('<span style="color: green">'+txt+'</span>');
+			} else if (txt == 'null') {
+				$(this).html('<span style="color: blue">'+txt+'</span>');
+			} else if (txt.charAt(0) != '\'' && txt.charAt(0) != '{'){
+				$(this).html('<span style="color: red">'+txt+'</span>');
+			}
+		});
+		</script>
+	     <div style="clear: both; height: 50px;"></div>
+ 
+    </body>
+
+</html>

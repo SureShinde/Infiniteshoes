@@ -1,0 +1,115 @@
+/**
+* Plugin: jQuery AJAX-ZOOM, jquery.axZm.360Gallery.css
+* Copyright: Copyright (c) 2010-2015 Vadim Jacobi
+* License Agreement: http://www.ajax-zoom.com/index.php?cid=download
+* Extension Version: 2.6
+* Extension Date: 2016-03-07
+* URL: http://www.ajax-zoom.com
+* Documentation: http://www.ajax-zoom.com/index.php?cid=docs
+*/
+
+.azVideoIframe{
+	background: url(../icons/ajax-loader-map-white.gif) no-repeat center center;	
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.azAjaxFrame{
+	background: url(../icons/ajax-loader-map-white.gif) no-repeat center center;
+}
+/* Div where we put the gallery at fullscreen mode */
+#axZmFsSpaceTop,#axZmFsSpaceTopTempRemove{
+	border-bottom: 1px solid #404040;
+	overflow: hidden;
+}
+
+/* Div where we put the gallery at fullscreen mode */
+#axZmFsSpaceBottom,#axZmFsSpaceBottomTempRemove{
+	border-top: 1px solid #404040;
+	overflow: hidden;
+}
+
+/* 360 Gallery thumbs */
+.spinGallery_temp{
+	color: gray; margin-top: 20px; min-height: 30px; padding: 10px 0px 0px 40px; 
+	background: url(../icons/ajax-loader-map-white.gif) no-repeat left center;	
+}
+
+.axZmThumbSlider li.horizontal.selected {
+	background-color: transparent;
+	border: 1px solid transparent;
+	box-shadow: 0 0 4px #000;
+}
+.axZmThumbSlider li {
+	background-color: transparent;
+	border: 1px solid transparent;
+}
+
+.axZmThumbSliderDescription{
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	font-size: 8px;
+	text-align: center;
+	color: #444;
+	width: 100%;
+	line-height: 10px;
+	/*height: 15px;*/
+	/*overflow: hidden;*/
+}
+
+.axZmThumbSliderIcon{
+	height: 15px;
+	width: auto;
+	pointer-events: none;
+	position: absolute;
+	top: 1px;
+	right: 1px;
+}
+
+/* CSS for thumbs when axZmThumbSlider is not used*/
+.azThumb {
+    -moz-user-select: none;
+    font-size: 0;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    white-space: normal !important;
+}
+.azThumb li {
+    background-color: #f9f9f9;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    display: inline-block; zoom: 1; *display: inline;
+    float: left !important;
+    font-size: 0;
+    height: 70px;
+    line-height: 0;
+    margin: 0 10px 10px 0;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+    width: 70px;
+}
+.azThumb li.selected {
+	border: 1px solid #0191FF; 
+	background-color: #DDDDDD;
+	-moz-box-shadow: 0 0 4px #0191FF;
+	-webkit-box-shadow: 0 0 4px #0191FF;
+	box-shadow: 0 0 4px #0191FF;
+}
+.azThumb li img.thumb {
+    max-height: 100% !important;
+    max-width: 100% !important;
+    vertical-align: middle;
+}
+.azThumb li span.vAlign {
+    display: inline-block; zoom: 1; *display: inline;
+    height: 100%;
+    vertical-align: middle;
+}

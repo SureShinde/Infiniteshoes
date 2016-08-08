@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package>
+    <name>web4pro_Abandonedcart</name>
+    <version>1.0.4</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/lisenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Extension allow customer to place a fast order in one single click based on&#xD;
+customer provided phone number and/or email.&#xD;
+Additional notes can be added to fast order by customer&#xD;
+Customer can enable checkbox to make order only with current product &#xD;
+or cart content and current product.</summary>
+    <description>Extension allow customer to place a fast order in one single click based on&#xD;
+customer provided phone number and/or email.&#xD;
+Additional notes can be added to fast order by customer.&#xD;
+Customer can enable checkbox to make order only with current product or cart content and current product.&#xD;
+&#xD;
+Features.&#xD;
+- work with any type of product;&#xD;
+- work with any number of column templates;&#xD;
+- fast order submit via ajax;&#xD;
+- enable/disable to show email field on fast order form;&#xD;
+- show/hide additional notes for the order to be created;&#xD;
+- to create order only with current product or cart content and current product;&#xD;
+- view orders in admin;&#xD;
+- send email to admin;&#xD;
+- enable/disable register guest as customer.</description>
+    <notes>Fix bug with templates</notes>
+    <authors><author><name>Andrii Mutylo</name><user>amutylo</user><email>amutylo@corp.web4pro.com.ua</email></author></authors>
+    <date>2016-03-18</date>
+    <time>11:35:57</time>
+    <contents><target name="mage"><dir name="skin"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="abandonedcart"><file name="abandonedcart.css" hash="b0d9cf44b4dd26f66e51a5376a1382e0"/></dir></dir></dir></dir></dir><dir name="app"><dir name="code"><dir name="community"><dir name="Web4pro"><dir name="Abandonedcart"><dir name="Block"><dir name="Adminhtml"><dir name="Abandonedmails"><file name="Grid.php" hash="9060093a6fb849d49abafbf410e3e166"/></dir><file name="Abandonedmails.php" hash="b9b637019b7bee1e9ab15f8e91e68ea9"/><dir name="Abandonedorder"><file name="Grid.php" hash="e6f960f9f84176329d50f0816cad10cb"/></dir><file name="Abandonedorder.php" hash="d7283ab5b5f0f9e12f7c2083c63c60a5"/><dir name="System"><dir name="Config"><file name="Date.php" hash="eec4283dfbea788691f72c6e1d6ba6d0"/></dir></dir></dir><dir name="Email"><dir name="Order"><file name="Items.php" hash="114b49b530574d132bfdf4a5e044056b"/></dir></dir></dir><dir name="Helper"><file name="Data.php" hash="99cccbf6c0c6976e0002affc65499fee"/></dir><dir name="Model"><file name="Config.php" hash="b393a597dd4718a350332e9684dae477"/><file name="Cron.php" hash="d7d2d05cea0dd522c2cb3cd9ce8cbd9a"/><file name="EventObserver.php" hash="983faacb97c468a3b8b04a43819949c7"/><file name="Mailssent.php" hash="e23cb66f30c701827cf20a5868b1fea1"/><dir name="Resource"><dir name="Mailssent"><file name="Collection.php" hash="f142bdbbd4a0703f72baf8797831124e"/></dir><file name="Mailssent.php" hash="9fe7ddd15b8248eedd59dc3d2dd19fbf"/><dir name="Order"><file name="Collection.php" hash="2df2382b217b74eee8a6b46cdab65ac1"/></dir></dir><dir name="System"><dir name="Config"><file name="Automatic.php" hash="2deb05f63b07c6c33a2c0e794a0e32f7"/><file name="Cmspage.php" hash="f7a7bb1f5231bf6b87ca66a69985a571"/><file name="Customergroup.php" hash="79e9d343f7c3652e471aa2625d082776"/><file name="Discounttype.php" hash="2af8b70e00c27733cebd618d069f716c"/><file name="Maxemails.php" hash="ad14060e3419baa017ec20e0b6325ee1"/><file name="Unit.php" hash="0277c1563bb886a900714ff835940c6c"/></dir></dir></dir><dir name="controllers"><file name="AbandonedController.php" hash="b08db36123eefaf21376f3edd531f8eb"/><dir name="Adminhtml"><file name="AbandonedmailsController.php" hash="e293d702027111882a5d4ef472c361aa"/><file name="AbandonedorderController.php" hash="ec4b9d2e8bde09bd9c4681b8c512e312"/></dir></dir><dir name="etc"><file name="adminhtml.xml" hash="35b5c3d99a40b2a2da94dc46d6248a10"/><file name="config.xml" hash="a77293fc867629f7aa3489f2d916062f"/><file name="system.xml" hash="0e185c279e92656a9ac7feef29e94a6a"/></dir><dir name="sql"><dir name="web4proabandonedcart_setup"><file name="mysql4-install-1.0.0.php" hash="54f435815c3990d6248240786eb25a3b"/></dir></dir></dir></dir></dir></dir><dir name="design"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="abandonedcart.xml" hash="c2100d5a8920e210ecf328847749a471"/></dir><dir name="template"><dir name="web4pro"><dir name="abandonedcart"><dir name="dashboard"><file name="index.phtml" hash="a9d0b6cfcc61a16d012da405651867c0"/><file name="salebar.phtml" hash="50a0c2645e2f651da9ba72fd875986cb"/><file name="totalbar.phtml" hash="24d4a799cd6ee507a715469d2aa2e877"/></dir></dir></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="template"><dir name="web4pro_abandonedcart"><dir name="email"><dir name="order"><dir name="items"><dir name="order"><file name="default.phtml" hash="432a0a2b0091d4d542cbb4fd336b0dc5"/></dir></dir><file name="items.phtml" hash="b0ca6101958f8fe4befc2bc37cc70263"/></dir></dir></dir></dir></dir></dir></dir></dir><dir name="etc"><dir name="modules"><file name="Web4pro_Abandonedcart.xml" hash="f4e9e29e9a8ab24284c94527b9968e7a"/></dir></dir><dir name="locale"><dir name="en_US"><dir name="template"><dir name="email"><dir name="web4pro"><dir name="abandonedcart"><file name="cart_mail_1.html" hash="165b29db632494dbb8bd0cf93ef831c0"/><file name="cart_mail_2.html" hash="f1d5a66c87eaad5fbbc507a7fcbb9759"/><file name="cart_mail_3.html" hash="49570b750dffb7c46204ac5276cebc9b"/></dir></dir></dir></dir><file name="Web4pro_Abandonedcart.csv" hash="22871350e337cdb63b237849a4afe0a9"/></dir><dir name="ru_RU"><dir name="template"><dir name="email"><dir name="web4pro"><dir name="abandonedcart"><file name="cart_mail_1.html" hash="55241321d0de99bcc1602ed9c1000106"/><file name="cart_mail_2.html" hash="be09f53b6c121ac6a427d15c648847d0"/><file name="cart_mail_3.html" hash="49570b750dffb7c46204ac5276cebc9b"/></dir></dir></dir></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

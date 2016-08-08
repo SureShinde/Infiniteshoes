@@ -1,0 +1,32 @@
+<!--@subject Order {{var increment_id}} held for fraud score of {{var fraudScore}} @-->
+<!--@vars
+{"var increment_id":"Order Increment ID",
+"var fraudScore":"Fraud Score",
+"var orderLink":"Link to Order in Admin"}
+@-->
+
+<table>
+    <thead>
+    <tr>
+        <th>Order held for high fraud score.</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            <p>
+                <b>Order</b><br />
+                {{var increment_id}}
+            </p>
+            <p>
+                <b>Score of</b><br />
+                {{var fraudScore}}
+            </p>
+            <p>
+                <b>Link:</b><br />
+                <a href="{{var orderLink}}">{{var increment_id}}</a>
+            </p>
+        </td>
+    </tr>
+    </tbody>
+</table>

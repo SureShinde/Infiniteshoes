@@ -1,0 +1,478 @@
+/*!
+* Extension: jQuery AJAX-ZOOM, jquery.axZm.mouseOverZoom.4.css
+* Copyright: Copyright (c) 2010-2016 Vadim Jacobi
+* License Agreement: http://www.ajax-zoom.com/index.php?cid=download
+* Extension Version: 4.2.2
+* Extension Date: 2016-05-04
+* URL: http://www.ajax-zoom.com
+* Documentation && examples: http://www.ajax-zoom.com/examples/example32_responsive.php
+*/
+
+/* On default it is black */
+body:-webkit-full-screen  {background-color: #FFFFFF;} 
+body:-moz-full-screen     {background-color: #FFFFFF;} 
+body:-ms-full-screen      {background-color: #FFFFFF;} 
+body:-o-full-screen       {background-color: #FFFFFF;} 
+body:full-screen          {background-color: #FFFFFF;} 
+
+#az_mouseOverZoomContainer{
+	background-color: #FFF;
+}
+
+/* This is the moving lens square underneath the mouse pointer. */
+.axZm_mouseOverLens {
+	border: 1px solid transparent;
+	overflow: hidden !important;
+	background-color: none;    
+	background-image: url(../../icons/mousetrapFullscreen_tr_black_30.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	cursor: url(../../icons/zoom-in.cur), pointer;
+    display: none !important;
+	/*cursor: pointer;*/
+}
+
+.axZm_mouseOverInside {
+	cursor: url(../../icons/zoom-in.cur), pointer;
+}
+
+.axZm_mouseOverTrap {
+	background-image: url(../../icons/empty.gif);
+	cursor: pointer;
+}
+ 
+/* This is for the title text. */
+.axZm_mouseOverTitle {
+	display: none;
+	font-family: Arial, Helvetica, sans-serif;
+	position: absolute !important;
+	background-color: #000;
+	color: #fff;
+	padding: 3px;
+	width: 100%;
+	text-align: center;    
+	font-weight: bold;
+	font-size: 10px;
+}
+
+/* Flyout zoom window */
+.axZm_mouseOverFlyOut {
+	border-color: #AAA;
+	border-style: solid;
+	/* border-width is set over option - "zoomAreaBorderWidth" */
+	background-color: #FFF;
+	box-shadow: 5px 5px 7px #818181;
+	-webkit-box-shadow: 5px 5px 7px #818181;
+	-moz-box-shadow: 5px 5px 7px #818181;
+	}
+
+/* This is the loading message. */
+.axZm_mouseOverLoading {
+	background-image: url(../../icons/tr_black_50.png);
+	padding: 5px;
+	text-align: right;
+	/*border: #000 1px solid;*/
+	/*text-shadow: 1px 1px 2px #000;*/
+	font: Arial;
+	font-size: 12px;
+	line-height: 20px;
+	color: #FDFDFD;
+	border-radius: 5px;
+}
+
+/* Arrows placed over mouseover zoom */
+.axZm_mouseOverPrevNextArrows {
+	position: absolute;
+	display: none;
+	box-sizing: content-box !important;
+	overflow: hidden;
+	font-size: 22px;
+	color: red;
+	padding: 2px;
+	top: 50%;
+	z-index: 9999;
+	width: 32px;
+	height: 32px;
+	margin-top: -17px;
+	cursor: pointer;
+	background-repeat: no-repeat;
+}
+
+.axZm_mouseOverPrevNextArrowsRight {
+	right: 0px; /* could be also negative */
+}
+
+.axZm_mouseOverPrevNextArrowsLeft {
+	left: 0px;
+}
+
+.axZm_mouseOverPrevNextArrowsRightInner {
+	background-image: url("../axZmThumbSlider/skins/default/img/next-horizontal.png");
+	background-position: 0 0 ;
+	position: relative;
+	left: 4px;
+	width: 32px;
+	height: 32px;
+	pointer-events: none;
+}
+
+.axZm_mouseOverPrevNextArrowsRightInner.hover {
+	background-position: -32px 0;
+}
+
+.axZm_mouseOverPrevNextArrowsRightInner.down {
+	background-position: -64px  0;
+}
+
+.axZm_mouseOverPrevNextArrowsLeftInner{
+	background-image: url("../axZmThumbSlider/skins/default/img/prev-horizontal.png");
+	background-position: 0 0 ;
+	position: relative;
+	width: 32px;
+	height: 32px;
+	left: -4px;
+	pointer-events: none;
+}
+
+.axZm_mouseOverPrevNextArrowsLeftInner.hover {
+	background-position: -32px 0;
+}
+
+.axZm_mouseOverPrevNextArrowsLeftInner.down {
+	background-position: -64px 0;
+}
+
+.axZm_mouseOverNoSel{
+	-ms-touch-action: pan-y;
+	touch-action: pan-y;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	-ms-touch-select: none;
+	touch-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
+}
+
+.axZm_mouseOverWrapper{
+	-ms-touch-action: pan-y;
+	touch-action: pan-y;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	-ms-touch-select: none;
+	touch-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
+	box-sizing: content-box;
+	width: 100%;
+	height: 100%;
+}
+
+.axZm_mouseOverWrapper div{
+	box-sizing: content-box;
+}
+
+.axZm_mouseOverWrapper img{
+	max-width: none !important;
+	max-height: none !important;
+	display: inline;
+}
+
+.axZm_mouseOverImg{
+	overflow: hidden;
+}
+
+.axZm_mouseOverImg>img{
+    position: relative !important;
+}
+
+.axZm_mouseOverImg, 
+.axZm_mouseOverEffect,
+.axZm_tempFadeImage
+{
+	width: 100%;
+	height: 100%;
+	line-height: 0px;
+	margin: 0;
+	padding: 0;
+	font-size: 0px;
+	vertical-align: middle; 
+	text-align: center;
+	/*ie7 - do not remove*/
+	display: inline-block; zoom: 1; *display: inline;
+}
+
+.axZm_mouseOverImg img, 
+.axZm_mouseOverEffect img,
+.axZm_tempFadeImage img
+{
+	vertical-align: middle;
+	pointer-events: none;
+	max-width: 100% !important;
+	max-height: 100% !important;
+}
+
+.axZm_mouseOverImg span.vAlign, 
+.axZm_mouseOverEffect span.vAlign,
+.axZm_tempFadeImage span.vAlign{
+	display: inline-block; zoom: 1;  *display: inline;
+	vertical-align: middle;
+	height: 100%;
+}
+
+.axZm_mouseOverEffect>img.blur{
+	filter: blur(1px);
+	-webkit-filter: blur(1px);
+}
+.axZm_mouseOverEffect>img.grayscale{
+	filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+	filter: gray; /* IE6-9 */
+	-webkit-filter: grayscale(100%);
+}
+
+.axZm_mouseOverEffect>img.sepia{
+	-webkit-filter: sepia(1);
+	filter: sepia(1);
+}
+
+.axZm_mouseOverEffect>img.invert{
+	-webkit-filter: invert(1);
+	filter: invert(1);
+}
+
+.axZm_mouseOverEffect>img.saturate {
+	-webkit-filter: saturate(8);
+	filter: saturate(8);
+}
+
+.axZm_mouseOverEffect>img.custom {
+	filter: grayscale(100%) blur(2px);
+	-webkit-filter: grayscale(100%) blur(2px);
+}
+
+.axZm_mouseOverZoomHint{
+	position: absolute;
+	z-index: 7;
+	top: 3px;
+	left: 3px;
+	width: 30px;
+	height: 16px;
+	line-height: 16px;
+	padding-left: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #3D3D3D;
+	font-size: 11px;
+	background-image: url(../../icons/mouseover_zoomHint.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+
+.axZm_mouseOverZoomMsg{
+	position: relative;
+	z-index: 1;
+	bottom: -4px;
+	line-height: 10px;
+	text-align: center;
+	width: 100%;
+	left: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #3D3D3D;
+	font-size: 11px;
+}
+
+/* no image available */
+.axZm_mouseOverNoImage{
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background-color: #E3E3E3;
+	background-image: url(../../icons/no-image-available.png);
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.axZm_mouseOverSpinWrapper{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	background-color: #FFF;
+}
+
+.axZm_mouseOverPinterest{
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	padding: 1px 1px 10px 7px;
+	z-index: 1001;
+	line-height: 0;
+}
+
+.axZm_mouseOverPinterest img{ /* ie7 */
+	border: 0;
+}
+
+.axZm_mouseOverNoMargin{
+	margin: 0 !important;
+}
+
+/* Thumbnails for gallery */
+.axZm_mouseOverThumb{
+	/* Empty class needed as identifier, do not put anything in it*/
+}
+
+.azThumb{
+	position: relative;
+	overflow: visible;
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+	white-space: normal !important;
+	font-size: 0px;
+	-moz-user-select: none;
+	-webkit-touch-callout: none; 
+	-webkit-user-select: none;
+	margin-right: -10px; /* compensate for last margin right of the thumb */
+}
+
+/* List items with image inside */
+.azThumb li {
+	position: relative;
+	width: 120px; /* fixed width */
+	height: 120px; /* fixed height */
+	line-height: 0px;
+	margin: 0px 10px 10px 0px; /* space between thumbs*/
+	padding: 0px;
+	/*float: left !important;*/
+	cursor: pointer;
+	font-size: 0px;
+	vertical-align: middle; 
+	text-align: center;
+
+	border: 1px solid #AAA;
+	/*border-radius: 5px 5px 5px 5px; /* optional */
+	/*
+	-webkit-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.1);
+	-moz-box-shadow:    1px 1px 3px 0px rgba(50, 50, 50, 0.1);
+	box-shadow:         1px 1px 3px 0px rgba(50, 50, 50, 0.1);
+	*/
+	background-color: #FFF;
+	background-position: center center;
+	background-repeat: no-repeat;
+	/* background-size: contain; /* would stretch the image to fit the width and height */
+
+	/*ie7 - do not remove*/
+	display: inline-block; zoom: 1; *display: inline;
+}
+
+.azThumb li.selected {
+	border: 1px solid #0191ff;
+}
+
+/* This class will be added to the image inside li element */
+.azThumb li img.thumb {
+	vertical-align: middle;
+	pointer-events: none;
+	max-width: 100% !important;
+	max-height: 100% !important;
+}
+
+/* This class is for helper span to vertically align images as fix for Transitional doctype */
+.azThumb li span.vAlign {
+	display: inline-block; zoom: 1;  *display: inline;
+	vertical-align: middle;
+	height: 100%;
+}
+
+.azThumb li div.spinOverl, .axZmThumbSlider li div.spinOverl{
+	display: block;
+	position: absolute;
+	background-image: url(../../icons/360_zoom_overl.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	left: 0; top: 0;
+	cursor: pointer;
+	z-index: 1;
+	pointer-events: none;
+}
+
+.azThumb li div.spinOverlImg, .axZmThumbSlider li div.spinOverlImg{
+	display: block;
+	position: absolute;
+	background-image: url(../../icons/360_zoom_overl_img.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	left: 0; top: 0;
+	cursor: pointer;
+	z-index: 1;
+	pointer-events: none;
+}
+
+.azThumb li div.descr {
+	position: absolute;
+	color: #000;
+	width: 100%;
+	text-align: center;
+	word-wrap: break-word;
+	font-family: Tahoma, Arial;
+	font-size: 10px;
+	text-shadow: 0px 0px 2px rgba(150, 150, 150, 1);
+	height: 10px;
+	line-height: 10px;
+	bottom: -12px;
+	left: 0;
+}
+
+/* Crop slider */
+.axZm_mouseOverZoomCropSlider{
+	width: 100%; 
+	height: 100%; 
+	position: absolute;
+	background-color: #EEE;
+}
+
+/* Crop slider round thumbnails */
+.axZm_mouseOverZoomCropSlider li, .axZm_mouseOverZoomCropSlider li>img.thumb{
+	border-radius: 50% !important;
+}
+
+.axZm_mouseOverZoomCropSlider li, .axZm_mouseOverZoomCropSlider li.mouseover{
+	border-color: #FFF;
+}
+
+.axZm_mouseOverZoomCropSlider .axZmThumbSlider li.vertical.selected{
+	border-color: #0191ff;
+}
+
+.axZm_mouseOverZoomCropSlider .axZmThumbSlider li.horizontal.selected{
+	border-color: #0191ff;
+}
+
+
+.axZm_mouseOverZoomCropSlider div.label {
+	position: absolute;
+	padding: 0px;
+	width: 100%;
+	left: 0;
+    bottom: -14px;
+    font-family: Tahoma, Arial;
+    color: #000000;
+    font-size: 10px;
+    line-height: 12px;
+    min-height: 1px;
+    text-align: center;
+    white-space: normal;
+    text-shadow: 0px 0px 2px rgba(150, 150, 150, 1);
+    overflow: hidden;
+}

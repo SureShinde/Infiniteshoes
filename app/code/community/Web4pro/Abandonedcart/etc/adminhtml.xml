@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <menu>
+        <sales>
+            <children>
+                <web4pro_abandonedcart translate="title" module="web4pro_abandonedcart">
+                    <title>Orders from Abandoned Carts</title>
+                    <sort_order>800</sort_order>
+                    <action>adminhtml/abandonedorder/index</action>
+                </web4pro_abandonedcart>
+            </children>
+        </sales>
+        <newsletter>
+            <children>
+                <web4pro_emails translate="title" module="web4pro_abandonedcart">
+                            <title>Emails Sent from Abandoned Cart</title>
+                            <sort_order>810</sort_order>
+                            <action>adminhtml/abandonedmails/index</action>
+                </web4pro_emails>
+            </children>
+        </newsletter>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <sales>
+                        <children>
+                            <web4pro_abandonedcart translate="title" module="web4pro_abandonedcart">
+                                <title>Orders from Abandoned Carts</title>
+                            </web4pro_abandonedcart>
+                        </children>
+                    </sales>
+                    <newsletter>
+                        <children>
+                            <web4pro_emails translate="title" module="web4pro_abandonedcart">
+                                <title>Emails Sent from Abandoned Cart</title>
+                            </web4pro_emails>
+                        </children>
+                    </newsletter>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <web4proall module="web4pro_abandonedcart">
+                                        <title>Web4pro Abandonedcart  Section</title>
+                                    </web4proall>
+                                    <web4pro_abandonedcart translate="title" module="web4pro_abandonedcart">
+                                        <title>Web4pro Abandoned Cart</title>
+                                    </web4pro_abandonedcart>
+                                    <web4pro_emails translate="title" module="web4pro_abandonedcart">
+                                        <title>Web4pro Emails</title>
+                                    </web4pro_emails>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <translate>
+        <modules>
+            <Web4pro_Abandonedcart>
+                <files>
+                    <default>Web4pro_Abandonedcart.csv</default>
+                </files>
+            </Web4pro_Abandonedcart>
+        </modules>
+    </translate>
+</config>

@@ -1,0 +1,150 @@
+Enable / Disable AJAX-ZOOM for this product,Включить/Выключить AJAX-ZOOM для этого товара
+AJAX ZOOM enabled for this product's detail view,AJAX ZOOM включен для страницы просмотра этого товара
+Yes,Да
+No,Нет
+SETTINGS FOR EXISTING 360/3D,НАСТРОЙКИ ДЛЯ СУЩЕСТВУЮЩИХ 360/3D
+360/3D View,360/3D вид
+Settings,Настройки
+Name,Имя
+Value,Значение
+Add an option,Добавть опцию
+Edit,Редактировать
+Delete,Удалить
+360/3D Views,360/3D виды
+Add a new 360/3D view,Добавить новый 360/3D вид
+Create a new, Создать новый
+Please enter any name,Пожалуйста введите имя
+OR,ИЛИ
+Add to existing 3D as next row,Добавить к существующемы 3D следющей строкой
+Select,Выбрать
+You should not select anything here unless you want to create 3D (not 360) which contains more than one row!,
+Add images from ZIP archive,Добавить изображения из ZIP архива
+This is the most easy and quick way of adding 360 views to your product! Upload over FTP your 360's zipped (each images set in one zip file) to /modules/ajaxzoom/zip/ directory. After you did so these zip files will instantly appear in the select field below. All you have to do then is select one of the zip files and press 'add' button. Images from the selected zip file will be instantly imported.,Это самый простой способ добавления 3D/360 видов для вашего товара! Upload over FTP your 360's zipped (each images set in one zip file) to /modules/ajaxzoom/zip/ directory. After you did so these zip files will instantly appear in the select field below. All you have to do then is select one of the zip files and press 'add' button. Images from the selected zip file will be instantly imported.
+Select ZIP archive,Выберите ZIP архив
+Add,Добавить
+Cover Image,Основное изображение 
+Active,Активно
+Actions,Действия
+Delete,Удалить
+Images,Изображения
+Preview,Просмотр
+Are you sure?,Вы уверены?
+Add a new image to this image set,Добавить новое изображение к этому набору
+Image,Изображение
+Delete this image,Удалить изображение
+Cancel,Отменить
+Add files...,Добавить фалы...
+Upload files,Загрузить файлы
+License,Лицензия
+Domain,Домен
+License Type,Тип лицензии
+License Key,Лицензионный ключ
+Error200,Ошибка200
+Error300, Ошибка300
+Licenses,Лицензии
+General Settings,Основные настройки
+Settings for pinterest button,Настройки для кнопки Pinterest,
+mouseOverZoomParam - JS object containing specific options to this mouseover zoom,mouseOverZoomParam - JS object containing specific options to this mouseover zoom
+"DIV (container) ID for mouseover zoom","DIV (container) ID for mouseover zoom"
+"DIV (container) id of the gallery, set to false to disable gallery","DIV (container) id of the gallery, set to false to disable gallery"
+some...,описание...
+"Instantly hide gallery if there is only one image or one 360/3D","Instantly hide gallery if there is only one image or one 360/3D"
+"Use mouseenter (mouseover) for switching between images. You can specify an integer which will represent the time in ms to wait for switching after the mouse enters the thumb; true defaults to 200","Use mouseenter (mouseover) for switching between images. You can specify an integer which will represent the time in ms to wait for switching after the mouse enters the thumb; true defaults to 200"
+"Use $.axZmThumbSlider on gallery thumbnails or not","Use $.axZmThumbSlider on gallery thumbnails or not"
+"<p class=""preference_description"">$.axZmThumbSlider parametrs if ""galleryAxZmThumbSlider"" is enabled; for full list of options see under: <a href=""/modules/ajaxzoom/axZm/extensions/axZmThumbSlider/"" target=""_blank"">/modules/ajaxzoom/axZm/extensions/axZmThumbSlider/</a> or <a href=""http://www.ajax-zoom.com/axZm/extensions/axZmThumbSlider/"" target=""_blank"">http://www.ajax-zoom.com/axZm/extensions/axZmThumbSlider/</a></p>","<p class=""preference_description"">$.axZmThumbSlider parametrs if ""galleryAxZmThumbSlider"" is enabled; for full list of options see under: <a href=""/modules/ajaxzoom/axZm/extensions/axZmThumbSlider/"" target=""_blank"">/modules/ajaxzoom/axZm/extensions/axZmThumbSlider/</a> or <a href=""http://www.ajax-zoom.com/axZm/extensions/axZmThumbSlider/"" target=""_blank"">http://www.ajax-zoom.com/axZm/extensions/axZmThumbSlider/</a></p>"
+"Gallery thumb widthGallery thumb height","Gallery thumb widthGallery thumb height"
+"Double resolution of the thumb image","Double resolution of the thumb image"
+"Image from ""images"" option which should be loaded at first; see also ""images360firstToLoad"" option below","Image from ""images"" option which should be loaded at first; see also ""images360firstToLoad"" option below"
+"In case present load 360 from ""images360"" first and not an image from ""images""","In case present load 360 from ""images360"" first and not an image from ""images"""
+"Some (not all) options from '/axZm/zoomConfig.inc.php' and '/axZm/zoomConfigCustom.inc.php' can be set during runtime or in 'onBeforeStart' AJAX-ZOOM callback. ""images360Opt"" is a list of what possibly could be set in ""images360"" objects, e.g. ['spinReverseZ', 'spinWhilePreload'] and so on. Default is: ['spinReverse', 'spinReverseZ', 'spinBounce', 'spinDemoRounds', 'spinDemoTime', 'spinWhilePreload']","Some (not all) options from '/axZm/zoomConfig.inc.php' and '/axZm/zoomConfigCustom.inc.php' can be set during runtime or in 'onBeforeStart' AJAX-ZOOM callback. ""images360Opt"" is a list of what possibly could be set in ""images360"" objects, e.g. ['spinReverseZ', 'spinWhilePreload'] and so on. Default is: ['spinReverse', 'spinReverseZ', 'spinBounce', 'spinDemoRounds', 'spinDemoTime', 'spinWhilePreload']"
+"Show first image of the spin as thumb","Show first image of the spin as thumb"
+"Normally plain images are opened in some kind of lightbox or fullscreen; By setting this option to true the 360's will load into ""divID"" at first and can be expanded to fullscreen.","Normally plain images are opened in some kind of lightbox or fullscreen; By setting this option to true the 360's will load into ""divID"" at first and can be expanded to fullscreen."
+"This option is set to true for convinience reasons; In case your ""divID"" has fixed width and height, set $zoom['config']['picDim'] option in '/axZm/zoomConfigCustom.inc.php' after elseif ($_GET['example'] == 'mouseOverExtension360')","This option is set to true for convinience reasons; In case your ""divID"" has fixed width and height, set $zoom['config']['picDim'] option in '/axZm/zoomConfigCustom.inc.php' after elseif ($_GET['example'] == 'mouseOverExtension360')"
+"In case ""images360Preview"" is set to true, the value of this parameter will be sent to AJAX-ZOOM as ""options set"" (example=mouseOverExtension360)","In case ""images360Preview"" is set to true, the value of this parameter will be sent to AJAX-ZOOM as ""options set"" (example=mouseOverExtension360)"
+"Message displayed under mouse over zoom when 360 is loaded, e.g. ""Drag to spin 360, scroll to zoom""","Message displayed under mouse over zoom when 360 is loaded, e.g. ""Drag to spin 360, scroll to zoom"""
+"Preload all preview and mouseover images, possible values: false, true, 'oneByOne'","Preload all preview and mouseover images, possible values: false, true, 'oneByOne'"
+"In case there are no images in ""images"", nor there are any in ""images360"", a div with some image as background can be appended to the container and receive this options value as css class","In case there are no images in ""images"", nor there are any in ""images360"", a div with some image as background can be appended to the container and receive this options value as css class"
+"Width of the preview image or 'auto' (depending on parent container size - ""divID"", see above); this is also the value which will be passed to your AJAX-ZOOM imaging server to generate this image on-the-fly.","Width of the preview image or 'auto' (depending on parent container size - ""divID"", see above); this is also the value which will be passed to your AJAX-ZOOM imaging server to generate this image on-the-fly."
+"Height of the preview image or 'auto' (depending on parent container size - ""divID"", see above); this is also the value which will be passed to your AJAX-ZOOM imaging server to generate this image on-the-fly.","Height of the preview image or 'auto' (depending on parent container size - ""divID"", see above); this is also the value which will be passed to your AJAX-ZOOM imaging server to generate this image on-the-fly."
+"Set this to true for responsive layouts","Set this to true for responsive layouts"
+"Use single image as ""preview image"" - the image which is hovered and the big ""flyout image"".","Use single image as ""preview image"" - the image which is hovered and the big ""flyout image""."
+"If ""responsive"" option is enabled, ""heightRatio"" with instantly adjust the height of mouseover container depending on width calculated by the browser, e.g. 1.0 will always (only limited by ""maxSizePrc"" option) make height same as width; a value of 1.5 will make the preview like a portrait. You can also set ""heightRatio"" to 'auto'. In this case the height will be adjusted to cover available space instantly! Please note that when your images are not always same proportion, then the container will also change the size when the user switches to a different image.","If ""responsive"" option is enabled, ""heightRatio"" with instantly adjust the height of mouseover container depending on width calculated by the browser, e.g. 1.0 will always (only limited by ""maxSizePrc"" option) make height same as width; a value of 1.5 will make the preview like a portrait. You can also set ""heightRatio"" to 'auto'. In this case the height will be adjusted to cover available space instantly! Please note that when your images are not always same proportion, then the container will also change the size when the user switches to a different image."
+"Similar as you would set max-width: someValue @media only screen condition you can define ""heightRatio"" depending on the width of the browser, e.g. [""960|0.8"", ""700|0.7""]","Similar as you would set max-width: someValue @media only screen condition you can define ""heightRatio"" depending on the width of the browser, e.g. [""960|0.8"", ""700|0.7""]"
+"Oposit of ""heightRatio""","Oposit of ""heightRatio"""
+"Oposit of ""heightMaxWidthRatio""","Oposit of ""heightMaxWidthRatio"""
+"Limit the height if ""responsive"" and ""heightRatio"" options are set. Setting ""heightRatio"" option may result in that the height of the mouseover zoom is bigger than window height and the image is not fully visible. To prevent this you can limit the calculated height with this ""maxSizePrc"" option. The value of 1.0 would limit the height to 100% of window height; a value of 0.8 to 80% of window height; you can also define two values, e.g. '1.0|-120' which would be window height minus 120px.","Limit the height if ""responsive"" and ""heightRatio"" options are set. Setting ""heightRatio"" option may result in that the height of the mouseover zoom is bigger than window height and the image is not fully visible. To prevent this you can limit the calculated height with this ""maxSizePrc"" option. The value of 1.0 would limit the height to 100% of window height; a value of 0.8 to 80% of window height; you can also define two values, e.g. '1.0|-120' which would be window height minus 120px."
+"Max width of the image that will be shown in the zoom window; this is the value which will be passed to your AJAX-ZOOM imaging server to generate this image on-the-fly. Please note that the size is limited by $zoom['config']['allowDynamicThumbsMaxSize'] which is can be set in '/axZm/zoomConfig.inc.php'. You can also specify a link to the image, see ""images"" option above. To set the width of the fly out window see ""zoomWidth"" under ""mouseOverZoomParam"".","Max width of the image that will be shown in the zoom window; this is the value which will be passed to your AJAX-ZOOM imaging server to generate this image on-the-fly. Please note that the size is limited by $zoom['config']['allowDynamicThumbsMaxSize'] which is can be set in '/axZm/zoomConfig.inc.php'. You can also specify a link to the image, see ""images"" option above. To set the width of the fly out window see ""zoomWidth"" under ""mouseOverZoomParam""."
+"Max height of the image that will be shown in the zoom window; this is the value which will be passed to your AJAX-ZOOM imaging server to generate this image on-the-fly. Please note that the size is limited by $zoom['config']['allowDynamicThumbsMaxSize'] which is can be set in '/axZm/zoomConfig.inc.php'. You can also specify a link to the image, see ""images"" option above. To set the height of the fly out window see ""zoomHeight"" under ""mouseOverZoomParam"".","Max height of the image that will be shown in the zoom window; this is the value which will be passed to your AJAX-ZOOM imaging server to generate this image on-the-fly. Please note that the size is limited by $zoom['config']['allowDynamicThumbsMaxSize'] which is can be set in '/axZm/zoomConfig.inc.php'. You can also specify a link to the image, see ""images"" option above. To set the height of the fly out window see ""zoomHeight"" under ""mouseOverZoomParam""."
+"Determines how AJAX-ZOOM is opened when the user clicks on preview images / lens, possible values: 'fullscreen' (see also ""fullScreenApi"" option below), 'fancyboxFullscreen', 'fancybox', 'colorbox'; By editing $.mouseOverZoomInit you can extend the plugin to be used with different types of modal boxes to load AJAX-ZOOM into.","Determines how AJAX-ZOOM is opened when the user clicks on preview images / lens, possible values: 'fullscreen' (see also ""fullScreenApi"" option below), 'fancyboxFullscreen', 'fancybox', 'colorbox'; By editing $.mouseOverZoomInit you can extend the plugin to be used with different types of modal boxes to load AJAX-ZOOM into."
+"If fancybox is used in ""ajaxZoomOpenMode"" option, Fancybox options","If fancybox is used in ""ajaxZoomOpenMode"" option, Fancybox options"
+"If colorbox is used in ""ajaxZoomOpenMode"" option, Colorbox options","If colorbox is used in ""ajaxZoomOpenMode"" option, Colorbox options"
+"Configuration set which is passed to ajax-zoom when ajaxZoomOpenMode is 'fullscreen'","Configuration set which is passed to ajax-zoom when ajaxZoomOpenMode is 'fullscreen'"
+"Configuration set which is passed to ajax-zoom when ajaxZoomOpenMode is 'fancyboxFullscreen'","Configuration set which is passed to ajax-zoom when ajaxZoomOpenMode is 'fancyboxFullscreen'"
+"Configuration set which is passed to ajax-zoom when ajaxZoomOpenMode is 'fancybox'","Configuration set which is passed to ajax-zoom when ajaxZoomOpenMode is 'fancybox'"
+"Configuration set which is passed to ajax-zoom when ajaxZoomOpenMode is 'colorbox'","Configuration set which is passed to ajax-zoom when ajaxZoomOpenMode is 'colorbox'"
+"Disable animation while zooming with AJAX-ZOOM","Disable animation while zooming with AJAX-ZOOM"
+"Try to open AJAX-ZOOM at browsers fullscreen mode, possible on modern browsers except IE &lt; 10 and mobile","Try to open AJAX-ZOOM at browsers fullscreen mode, possible on modern browsers except IE &lt; 10 and mobile"
+"AJAX-ZOOM has several callbacks, http://www.ajax-zoom.com/index.php?cid=docs#onBeforeStart","AJAX-ZOOM has several callbacks, http://www.ajax-zoom.com/index.php?cid=docs#onBeforeStart"
+"Jpeg quality of the gallery thumbs","Jpeg quality of the gallery thumbs"
+"Jpeg quality of the preview image","Jpeg quality of the preview image"
+"Jpeg quality of the zoom image shown in the flyout window","Jpeg quality of the zoom image shown in the flyout window"
+"Callback function","Callback function"
+"Use ajax loading spinner without gif files etc","Use ajax loading spinner without gif files etc"
+"Spinner options, for more info see: http://fgnass.github.com/spin.js/","Spinner options, for more info see: http://fgnass.github.com/spin.js/"
+"Experimental feature - enable Pinterest button. Pinterest allows to collect visual bookmarks in the form of images collected on the internet.","Experimental feature - enable Pinterest button. Pinterest allows to collect visual bookmarks in the form of images collected on the internet."
+"Since images are changed the button needs to be repainted [...] In order to accomplish this the Pinterest API should be exposed to window object. This is done by setting data-pin-build attribute value in the script tag when pinterest JavaScript is included. &lt;script data-pin-build=""parsePinBtns"" type=""text/javascript"" src=""//assets.pinterest.com/js/pinit.js""&gt;&lt;/script&gt; So if you do not have the data-pin-build, please add it to the script tag and if it is different from default ('parsePinBtns'), then change this ""build"" value. Otherwise the pinterest button will not work.","Since images are changed the button needs to be repainted [...] In order to accomplish this the Pinterest API should be exposed to window object. This is done by setting data-pin-build attribute value in the script tag when pinterest JavaScript is included. &lt;script data-pin-build=""parsePinBtns"" type=""text/javascript"" src=""//assets.pinterest.com/js/pinit.js""&gt;&lt;/script&gt; So if you do not have the data-pin-build, please add it to the script tag and if it is different from default ('parsePinBtns'), then change this ""build"" value. Otherwise the pinterest button will not work."
+"This is the class of the container where the button will be put into. On default it is at bottom right. To place the button somewhere else you can either change the css of the default class or define a different class.","This is the class of the container where the button will be put into. On default it is at bottom right. To place the button somewhere else you can either change the css of the default class or define a different class."
+"href attribute before the button is build.","href attribute before the button is build."
+"Page title if null","Page title if null"
+"Will be set instantly if null","Will be set instantly if null"
+"Will be set to current selected image if null","Will be set to current selected image if null"
+"Source for the button","Source for the button"
+"Data attributes attached to the button before it is built. See pinterest API...","Data attributes attached to the button before it is built. See pinterest API..."
+"Position of the flyout zoom window, possible values: 'inside', 'top', 'right', 'bottom', 'left'","Position of the flyout zoom window, possible values: 'inside', 'top', 'right', 'bottom', 'left'"
+"applies when width (left, right) or height (top, bottom) of zoom window are less than this px value (zoomWidth || zoomHeight are set to auto); if zoomWidth || zoomHeight are fixed, applies when zoom window is out of page border","applies when width (left, right) or height (top, bottom) of zoom window are less than this px value (zoomWidth || zoomHeight are set to auto); if zoomWidth || zoomHeight are fixed, applies when zoom window is out of page border"
+"When ""posAutoInside"" is enabled and inner zoom fires or ""position"" option is set to 'inside' right away - there is no lens. However you will notice that the reaction to mouse movements occure somewhere in the middle of the image; at the edges mostly nothing happens in simmilar scripts. With this option you can adjust how far from the edge mouse movements should be captured. The range is between 0 and 0.5;","When ""posAutoInside"" is enabled and inner zoom fires or ""position"" option is set to 'inside' right away - there is no lens. However you will notice that the reaction to mouse movements occure somewhere in the middle of the image; at the edges mostly nothing happens in simmilar scripts. With this option you can adjust how far from the edge mouse movements should be captured. The range is between 0 and 0.5;"
+"Flip right to left and bottom to top if less than int px value or false to disable","Flip right to left and bottom to top if less than int px value or false to disable"
+"Overrides position option and instantly chooses the direction, disables autoFlip; playes nicely when zoomWidth and zoomHeight are set to 'auto'","Overrides position option and instantly chooses the direction, disables autoFlip; playes nicely when zoomWidth and zoomHeight are set to 'auto'"
+"Uses full screen height (does not align to the map / disables adjustY) if position is right or left || uses full screen width (does not align to the map / disables adjustX) if position is top or bottom","Uses full screen height (does not align to the map / disables adjustY) if position is right or left || uses full screen width (does not align to the map / disables adjustX) if position is top or bottom"
+"Width of the zoom window e.g. 540 or 'auto' or jQuery selector|correction value, e.g. '#refWidthTest|+20'; so if you want to have a width of the zoom window same as for example a responsive container to the right (so it is fully covered) and max possible height, then define the id of this container to the right, e.g. 'myArticleData', set ""zoomWidth"" to '#myArticleData|+10' and ""zoomHeight"" to 'auto'. New in Ver. b4: if you have a three column design and want to cover both containers to the right, then just define both containers in the jQuery selector, e.g. '.pb-center-column,.pb-right-column|+20'; the margin between the containers is not taken into account but you can adjust the result with the second value after vertical bar.","Width of the zoom window e.g. 540 or 'auto' or jQuery selector|correction value, e.g. '#refWidthTest|+20'; so if you want to have a width of the zoom window same as for example a responsive container to the right (so it is fully covered) and max possible height, then define the id of this container to the right, e.g. 'myArticleData', set ""zoomWidth"" to '#myArticleData|+10' and ""zoomHeight"" to 'auto'. New in Ver. b4: if you have a three column design and want to cover both containers to the right, then just define both containers in the jQuery selector, e.g. '.pb-center-column,.pb-right-column|+20'; the margin between the containers is not taken into account but you can adjust the result with the second value after vertical bar."
+"Height of the zoom window e.g. 375, or 'auto' or jQuery selector|correction value, e.g. '#refWidthTest|+20'","Height of the zoom window e.g. 375, or 'auto' or jQuery selector|correction value, e.g. '#refWidthTest|+20'"
+"If zoomWidth or zoomHeight are set to 'auto', the margin to the edge of the screen","If zoomWidth or zoomHeight are set to 'auto', the margin to the edge of the screen"
+"Horizontal margin of the zoom window","Horizontal margin of the zoom window"
+"Vertical margin of the zoom window","Vertical margin of the zoom window"
+"Opacity of the selector lens","Opacity of the selector lens"
+"Quickly override css of the lens","Quickly override css of the lens"
+"Set css class for the lens","Set css class for the lens"
+"Border thickness of the zoom window","Border thickness of the zoom window"
+"Speed of inner fade or false","Speed of inner fade or false"
+"Speed of shutter fadein or false; applies only if image proportions are different from container","Speed of shutter fadein or false; applies only if image proportions are different from container"
+"Speed of fade in for mouse over","Speed of fade in for mouse over"
+"Speed of fade out for mouse over","Speed of fade out for mouse over"
+"Speed for flyout or false to disable","Speed for flyout or false to disable"
+"Transition of the flyout","Transition of the flyout"
+"Initial opacity for flyout","Initial opacity for flyout"
+"Speed for fly back or false to disable","Speed for fly back or false to disable"
+"Transition type of the fly back","Transition type of the fly back"
+"Final opacity of fly back","Final opacity of fly back"
+"Scroll page when clicked on the thumb and the mouse over preview image is not fully visible","Scroll page when clicked on the thumb and the mouse over preview image is not fully visible"
+"Integer bigger than 1 indicates smoother movements; set 0 to disable","Integer bigger than 1 indicates smoother movements; set 0 to disable"
+"Color value around the lens or false","Color value around the lens or false"
+"Opacity of the area around the lens when ""tint"" option is set to some color value","Opacity of the area around the lens when ""tint"" option is set to some color value"
+"Apply filter to the image, e.g. ""blur"", ""grayscale"", ""sepia"", ""invert"", ""saturate""; see also .axZm_mouseOverEffect>img CSS","Apply filter to the image, e.g. ""blur"", ""grayscale"", ""sepia"", ""invert"", ""saturate""; see also .axZm_mouseOverEffect>img CSS"
+"Show background image in the lens","Show background image in the lens"
+"Enable / disable title on zoom window","Enable / disable title on zoom window"
+"Opacity of the title container","Opacity of the title container"
+"Position of the title, top or bottom","Position of the title, top or bottom"
+"Cursor over lens horizontal offset, 0.5 is middle","Cursor over lens horizontal offset, 0.5 is middle"
+"Cursor over lens vertical offset, 0.5 is middle","Cursor over lens vertical offset, 0.5 is middle"
+"Time in ms after which click is aborted without touch movement and mousehover is initialized","Time in ms after which click is aborted without touch movement and mousehover is initialized"
+"Display loading information, CSS .mouseOverLoading","Display loading information, CSS .mouseOverLoading"
+"Loading message, not needed, can be just the spinner - see below","Loading message, not needed, can be just the spinner - see below"
+"Width of loading container","Width of loading container"
+"Height of loading container","Height of loading container"
+"Opacity of the loading container (the transparent background is set via png image on default, see css class)","Opacity of the loading container (the transparent background is set via png image on default, see css class)"
+"Enable zoom icon which disappears on mouse hover; css class: .axZm_mouseOverZoomHint; If you want to change the position or the icon simply change the css class;","Enable zoom icon which disappears on mouse hover; css class: .axZm_mouseOverZoomHint; If you want to change the position or the icon simply change the css class;"
+"Text which will be appended next to the icon enabled by ""zoomHintEnable""","Text which will be appended next to the icon enabled by ""zoomHintEnable"""
+"Message which can appear under the mouse over zoom, css class: .axZm_mouseOverZoomMsg","Message which can appear under the mouse over zoom, css class: .axZm_mouseOverZoomMsg"
+"Message which can appear under the mouse over zoom when the mouse enters it.","Message which can appear under the mouse over zoom when the mouse enters it."
+"DISPLAY ONLY IN THESE PRODUCTS","Показывать AJAX ZOOM только для укзанных продуктов"
+"CSV with product IDs for which AJAX-ZOOM will be only enabled. Leave blank to have it enabled for all products! This option can be usefull e.g. if you want to make A/B tests and enable AJAX-ZOOM only for certain products, e.g. 7,15 would enable AJAX-ZOOM only for products with ID 7 and 15","CSV with product IDs for which AJAX-ZOOM will be only enabled. Leave blank to have it enabled for all products! This option can be usefull e.g. if you want to make A/B tests and enable AJAX-ZOOM only for certain products, e.g. 7,15 would enable AJAX-ZOOM only for products with ID 7 and 15"

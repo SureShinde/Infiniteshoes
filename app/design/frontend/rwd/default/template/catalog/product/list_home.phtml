@@ -1,0 +1,144 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+/* @var $this Mage_Catalog_Block_Product_List */
+?>
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+?>
+
+<?php if($_productCollection->count()): ?>
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+    <ul id="slide_products_home" class="slideshow">
+        <?php $i=0; foreach ($_productCollection as $_product): ?>
+            <?php
+            if($i==0 || $i%4==0 && $i<8){
+                echo '<li>';
+                echo '<ul>';
+            }
+            ?>
+            <?php if($i<8): ?>
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+                <a class="product_img" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+                    <?php $_imgSize = 210; ?>
+                    <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                         src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize); ?>"
+                         alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                </a>
+                <div class="clr"></div>
+                <div class="product-info left full">
+                    <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+                    <?php echo $this->getPriceHtml($_product, true) ?>
+                    <?php
+                    // Provides extra blocks on which to hang some features for products in the list
+                    // Features providing UI elements targeting this block will display directly below the product name
+                    if ($this->getChild('name.after')) {
+                        $_nameAfterChildren = $this->getChild('name.after')->getSortedChildren();
+                        foreach ($_nameAfterChildren as $_nameAfterChildName) {
+                            $_nameAfterChild = $this->getChild('name.after')->getChild($_nameAfterChildName);
+                            $_nameAfterChild->setProduct($_product);
+                            echo $_nameAfterChild->toHtml();
+                        }
+                    }
+                    ?>
+                </div>
+
+                <?php
+                if($_product->getTypeId() == "configurable"){//for configurable product
+                    $productAttributeOptions = $_product->getTypeInstance(true)->getConfigurableAttributesAsArray($_product);
+                    $attributeOptions = array();
+                    foreach ($productAttributeOptions as $productAttribute) {
+                        foreach ($productAttribute['values'] as $attribute) {
+                            $attributeOptions[$productAttribute['label']][$attribute['value_index']] = $attribute['store_label'];
+                        }
+                    }
+                    if(is_array($attributeOptions['Color'])){
+                        echo '<ul class="configurable-home clearfix">';
+                        foreach($attributeOptions['Color'] as $color){//foreach list attribute color
+                            //check neu co hinh thi dung hinh lam bg cho
+                            $url_file = Mage::getBaseDir('media').'/wysiwyg/swatches/';
+                            $url_bg = Mage::getBaseUrl('media').'/wysiwyg/swatches/';
+                            $label = strtolower($color).'.png';
+                            $file = $url_file.$label;
+                            $color_imgage = '';
+
+                            if (is_file($file)) {
+                                $color_image = '<img src="'.$url_bg.$label.'" height="21" width="29" alt="'.$color.'" />';
+                            }else{
+                                $j=0;
+                                foreach ($_product->getMediaGalleryImages() as $_image) {
+                                    if($color==$_image->getLabel() && $j==0){
+                                        $j++;
+                                        $color_image = '<img src="'.$this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize(29).'" height="21" width="29" alt="'.$color.'" />';
+                                    }
+                                }
+                            }
+
+                            $k=0;
+                            $imageThumbnailUrl = '';
+                            foreach ($_product->getMediaGalleryImages() as $_image) {
+                                if($color==$_image->getLabel() && $k==0){
+                                    $k++;
+                                    $imageThumbnailUrl = $this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize(210);
+                                }
+                            }
+                            ?>
+                            <li class="option-black is-media" data-product-id="<?php echo $_product->getId(); ?>" data-option-label="<?php echo $color?>" onmouseover="changeImageHome('<?php echo $imageThumbnailUrl; ?>', '<?php echo $_product->getId(); ?>')">
+                                <a href="javascript:void(0)" name="black" class="swatch-link" title="<?php echo $color; ?>" style="height: 23px; width: 31px;">
+                                <span class="swatch-label" style="height: 21px; width: 29px; line-height: 21px;">
+                                    <?php echo $color_image;?>
+                                </span>
+                                </a>
+                            </li>
+                        <?php
+                        }// end foreach list attribute color
+                        echo '</ul>';
+                    }
+                }// end for configurable product
+                //exit();
+                ?>
+
+            </li>
+            <?php endif; ?>
+            <?php
+            $i++;
+            if($i%4==0 && $i<=8){
+                echo '</ul>';
+                echo '</li>';
+            }
+            ?>
+        <?php endforeach ?>
+    </ul>
+    <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+<?php endif; ?>

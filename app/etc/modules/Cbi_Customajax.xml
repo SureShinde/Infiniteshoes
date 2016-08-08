@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Cbi_Customajax>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Cbi_Customajax>
+    </modules>
+</config>

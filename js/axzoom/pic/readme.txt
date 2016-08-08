@@ -1,0 +1,1 @@
+An all media files will be stored in the folder

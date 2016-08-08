@@ -1,0 +1,101 @@
+/**
+/**
+* Extension: jQuery AJAX-ZOOM, jquery.axZm.mouseOverZoomCustom.4.css
+* Copyright: Copyright (c) 2010-2016 Vadim Jacobi
+* License Agreement: http://www.ajax-zoom.com/index.php?cid=download
+* Extension Version: 4.2.2
+* Extension Date: 2016-05-04
+* URL: http://www.ajax-zoom.com
+* Documentation && examples: http://www.ajax-zoom.com/examples/example32_responsive.php
+*/
+
+/* Overwrite some css from /axZm/extensions/skins/default/jquery.axZm.thumbSlider.css */
+.axZmThumbSlider li{
+	background-color: #FFF!important; 
+	box-shadow: none!important;
+}
+
+.axZmThumbSlider li.vertical {
+	border-color: #AAAAAA;
+	margin: 10px 0px 10px 5px; /* space between thumbs*/
+	border-radius: 0;
+}
+
+.axZmThumbSlider li.vertical.mousehover{
+	border-color: #0191ff;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+/* Horizontal items selected */
+.axZmThumbSlider li.vertical.selected {
+	border: 1px solid #0191ff; 
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow:none;
+}
+
+
+/* Overwrite some css from /axZm/axZm.css */
+
+.axZm_zoomHorGalleryDescr{display:none;}
+.axZm_zoomHorGalleryDescr{display: none;}
+
+#axZm_zoomContainer{background-color: #FFFFFF;}
+.axZm_zoomContainer{background-color: #FFFFFF;}
+.axZm_zoomGalleryVerticalContainer{background-color: #FFFFFF;}
+.zFsO{background-color: #FFFFFF;}
+.zFsOResOverlay{background-color: #FFFFFF;}
+#axZmTempLoading{background-image: url('../../../icons/ajax-loader-bert.gif'); background-repeat: no-repeat; background-position: center;}
+
+
+/* Vertical Thumbs */
+
+.axZm_zoomGalleryBox, .axZm_zoomGalleryBoxOver, .axZm_zoomGalleryBoxSelected{
+	border-color: #AAAAAA; /*anim*/
+	background-color: #FFFFFF; /*anim*/
+	color: #444444; /*anim*/
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.axZm_zoomGalleryBoxSelected{
+	border-color: #0191ff; /*anim*/
+	background-color: #FFFFFF; /*anim*/
+	color: #444444; /*anim*/
+}
+
+.axZm_zoomGalleryBoxOver{
+	border-color: #0191ff; /*anim*/
+	background-color: #FFFFFF; /*anim*/
+	color: #444444; /*anim*/
+}
+
+/* the css is byloaded, so we use important here */
+.jspTrack{background-image: none !important;background-color: #E7E7E7 !important;}
+
+.axZm_spinPreloaderBar{
+	background-color: #0191ff;
+	background-image: url('../../../icons/spin_preloader_blue_10x10.png');
+}
+
+.axZm_spinPreloaderHolder{
+	background-image: url('../../../icons/tr_black_50.png');
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+}
+
+#new-box-AJAX-ZOOM{
+	left: 12px; top: -3px; z-index: 1001; pointer-events: none;
+}
+
+#sale-box-AJAX-ZOOM{
+	right: 12px; top: -3px; z-index: 1001; pointer-events: none;
+}
+
+#discount-AJAX-ZOOM{
+
+}

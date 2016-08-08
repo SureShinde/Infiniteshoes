@@ -1,0 +1,137 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Template for Mage_Page_Block_Html
+ */
+?>
+
+<!DOCTYPE html>
+
+<!--[if lt IE 7 ]> <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="<?php echo $this->getLang(); ?>" id="top" class="no-js"> <!--<![endif]-->
+
+<head>
+<?php echo $this->getChildHtml('head') ?>
+</head>
+<body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
+<?php echo $this->getChildHtml('after_body_start') ?>
+<div class="wrapper">
+    <?php echo $this->getChildHtml('global_notices') ?>
+    <div class="page">
+        <?php echo $this->getChildHtml('header') ?>
+        <div class="main-container col2-left-layout full left">
+            <div class="main">
+
+                <?php
+                if(Mage::registry('current_category')){//is category page
+                    $layer = Mage::getSingleton('catalog/layer');
+                    $_category = $layer->getCurrentCategory();
+                    $currentCategoryId= $_category->getId();
+                    $currentCategoryName= $_category->getName();
+                    $brands_id = 20;
+                    $children = Mage::getModel('catalog/category')->getCategories($brands_id);
+                    $category_banner = 1;
+                    $brands_banner_url =  $_category->getImageUrl();
+                    $catalog_desc = Mage::getModel('catalog/layer')->getCurrentCategory()->getDescription();;
+                    foreach ($children as $category) {
+                        if($category->getId() == $currentCategoryId){
+                            $category_banner = 2;//for brands detail
+                        }
+                    }
+                    if($currentCategoryId == $brands_id){
+                        $category_banner = 0;//for brands listing
+                    }
+
+                    if($category_banner==2){//banner cho cac trang detail cua brands
+                        $breadcrumb_brands = 'breadcrumb_brands';
+                    }
+                }
+                ?>
+
+                <div class="breadcrumb_wrap full left <?php echo $breadcrumb_brands;?>">
+                    <div class="breadcrumb_wrap_in width_1200">
+                        <?php echo $this->getChildHtml('breadcrumbs') ?>
+                    </div><!-- end breadcrumb_wrap -->
+                </div>
+                <div class="clr"></div>
+
+                <?php
+                if(Mage::registry('current_category')){//is category page
+                    if($category_banner==2){//banner cho cac trang detail cua brands
+                        $brands_detail_header = '';
+                        if($brands_banner_url){
+                            $brands_detail_header = 'style="background: url('.$brands_banner_url.') center no-repeat"';
+                        }
+                        ?>
+                        <div class="brands_detail_header full left" <?php echo $brands_detail_header;?>>
+                            <div class="width_1200">
+                                <div class="brands_detail_desc left">
+                                    <div class="full left brands_detail_title">
+                                        <?php
+                                        echo $currentCategoryName;
+                                        ?>
+                                    </div>
+                                    <?php
+                                    echo $catalog_desc;
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                }
+                ?>
+
+
+                <div class="width_1200">
+                    <div class="main_wrap full left">
+                        <?php // This left_first block will display above the main content on smaller viewports ?>
+                        <?php if ($_leftContent = $this->getChildHtml('left_first')): ?>
+                            <div class="col-left sidebar col-left-first"><?php echo $_leftContent;   ?></div>
+                        <?php endif; ?>
+                        <div class="col-main right">
+                            <?php echo $this->getChildHtml('global_messages') ?>
+                            <?php echo $this->getChildHtml('content') ?>
+                        </div>
+                        <!--<div class="col-left sidebar"><?php /*echo $this->getChildHtml('left') */?></div>-->
+                    </div><!-- end main_wrap -->
+                </div>
+            </div>
+        </div>
+        <?php echo $this->getChildHtml('footer_before') ?>
+        <?php echo $this->getChildHtml('footer') ?>
+        <?php echo $this->getChildHtml('global_cookie_notice') ?>
+        <?php echo $this->getChildHtml('before_body_end') ?>
+    </div>
+</div>
+<?php echo $this->getAbsoluteFooter() ?>
+</body>
+</html>

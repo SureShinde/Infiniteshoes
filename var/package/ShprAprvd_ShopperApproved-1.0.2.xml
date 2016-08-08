@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package>
+    <name>ShprAprvd_ShopperApproved</name>
+    <version>1.0.2</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/OSL-3.0">Open Software License (OSL)</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Customer ratings and reviews integration with Shopper Approved. Build reputation with customer surveys. </summary>
+    <description>&lt;p&gt;Customer ratings and reviews integration with Shopper Approved. Boost traffic, profits, and online reputation with customer satisfaction surveys. Adds an on-page popup on checkout success to complete a short survey about the customers shopping experience with the option to complete a follow up survey after the goods are delivered.&lt;/p&gt;&#xD;
+&lt;p&gt;&lt;a href="http://www.shopperapproved.com/18393"&gt;Learn more about Shopper Approved here.&lt;/a&gt;&lt;/p&gt;&#xD;
+&lt;p&gt;Reviews are syndicated across Google, Bing, and Yahoo giving your site better visibility in organic and paid search results. Shopper Approved is the &#x201C;all-in-one&#x201D; system that completely automates the collection, management, and online promotion of customer ratings and reviews on your website, on social media sites, and in the major search engines. The more reviews collected, the more positive direct impact you can have on new potential customers buying decisions.&lt;/p&gt;&#xD;
+&lt;p&gt;&lt;a href="http://www.shopperapproved.com/18393"&gt;Learn more about Shopper Approved here.&lt;/a&gt;&lt;/p&gt;&#xD;
+&lt;p&gt;Super Fast Setup, be actively collecting ratings in 5 minutes. You don't need any special technical skills, and there are no files to upload or complicated databases to install or manage. All you have to do is add the Magento extension and enter your Shopper Approved ID and you'll be actively collecting ratings and reviews.&lt;/p&gt;&#xD;
+&lt;p&gt;&lt;a href="http://www.shopperapproved.com/18393"&gt;Learn more about Shopper Approved here.&lt;/a&gt;&lt;/p&gt;</description>
+    <notes>URL Update @ initial survey script</notes>
+    <authors><author><name>Shopper Approved</name><user>ShprAprvd</user><email>aubreybarker@gmail.com</email></author></authors>
+    <date>2015-05-18</date>
+    <time>00:45:04</time>
+    <contents><target name="magecommunity"><dir name="ShprAprvd"><dir name="ShopperApproved"><dir name="Block"><file name="Script.php" hash="c26b8c21d5453a8ec0a70f27cb23aa8c"/><file name="Schema.php" hash="40ddd9967b68989159636dcd1c961f76"/></dir><dir name="Helper"><file name="Data.php" hash="3b4e2552938727f35bd0efa7876fecee"/></dir><dir name="etc"><file name="config.xml" hash="91fa9d1c8deba90aa127d1e978d959a0"/><file name="system.xml" hash="4a6130d691fa4ae0cdd5e878f5354075"/><file name="adminhtml.xml" hash="c9798475d4287bf86c0669d4ca46095f"/></dir></dir></dir></target><target name="magedesign"><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="shopperapproved.xml" hash="ff3677fa1c64458746af72125ed607e7"/></dir><dir name="template"><dir name="shopperapproved"><file name="script.phtml" hash="4788b9812ebf91671154d996a984fb4b"/><file name="schema.phtml" hash="083c348a9fbf82228eb9ac17f73249f1"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="ShprAprvd_ShopperApproved.xml" hash="eccf9347cb9cb379ef66fab53ef4a78c"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

@@ -1,0 +1,44 @@
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:14px; margin:0; padding:0;">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+            <td valign="top" style="padding:10px 0 10px 0">
+                <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" style="border:1px solid #E0E0E0;">
+                    <tr>
+                        <td valign="top"><a href="{{store url=""}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:5px;" border="0"/></a></td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <h1 style="font-size:18px; font-weight:normal; line-height:18px; margin:0 0 6px 0;">Добрый день, {{htmlescape var=$name}}</h1>
+                            <p style="font-size:14px; line-height:16px; margin:0;">
+                                Вы оставили корзину с заказом без продолжения на {{var store.getFrontendName()}}.
+                                <br>Вы можете перейти на Вашу корзину с заказом нажав <a href="{{var url}}" style="color:#1E7EC8;">здесь</a>.
+                                {{depend couponcode}}
+                                <br>Вы можете использовать купон на скидку <b>{{var couponcode}}</b>
+                                {{/depend}}
+                                {{depend discount}}
+                                и получить скидку {{var discount}} только до {{var todate}}
+                                {{/depend}}
+                                <br>Если у Вас еще остались вопросы по Вашему заказу пожалуйста напишите нам на <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a> или позвоните нам по тел. <span class="nobr">{{config path='general/store_information/phone'}}</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rel="cart-content">
+                            {{block type='web4pro_abandonedcart/email_order_items' area='frontend' template='web4pro_abandonedcart/email/order/items.phtml' quote=$quote url}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#EAEAEA" style="background:#EAEAEA;"><p style="font-size:14px; margin:0;">Спасибо Вам за покупки с нами <strong>{{var store.getFrontendName()}}</strong></p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="margin-top: 10px; margin-bottom:10px;"><a bgcolor="#EAEAEA" style="background:#EAEAEA; display:cell-block; color:black; border-radius: 10px; text-decoration:none; padding:22px; box-shadow: inset 0px 1px 1px #909193, 0px 1px 0px #fff; font-size:15px" href="{{var url}}" >Нажмите для восстановления вашего заказа {{depend couponcode}} с купоном {{/depend}}{{var couponcode}} {{depend discount}} для получения скидки в размере {{var discount}} !{{/depend}}</a></div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>

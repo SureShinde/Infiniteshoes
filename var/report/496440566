@@ -1,0 +1,9 @@
+a:5:{i:0;s:229:"Error in file: "E:\wamp\www\working\Infiniteshoes\app\code\local\Mana\Filters\sql\mana_filters_setup\mysql4-upgrade-12.10.25.17-12.10.25.18.php" - SQLSTATE[42S21]: Column already exists: 1060 Duplicate column name 'default_mask1'";i:1;s:1058:"#0 E:\wamp\www\working\Infiniteshoes\app\code\core\Mage\Core\Model\Resource\Setup.php(644): Mage::exception('Mage_Core', 'Error in file: ...')
+#1 E:\wamp\www\working\Infiniteshoes\app\code\core\Mage\Core\Model\Resource\Setup.php(437): Mage_Core_Model_Resource_Setup->_modifyResourceDb('upgrade', '12.04.17.18', '16.01.11.15')
+#2 E:\wamp\www\working\Infiniteshoes\app\code\core\Mage\Core\Model\Resource\Setup.php(320): Mage_Core_Model_Resource_Setup->_upgradeResourceDb('12.04.17.18', '16.01.11.15')
+#3 E:\wamp\www\working\Infiniteshoes\app\code\core\Mage\Core\Model\Resource\Setup.php(235): Mage_Core_Model_Resource_Setup->applyUpdates()
+#4 E:\wamp\www\working\Infiniteshoes\app\code\core\Mage\Core\Model\App.php(428): Mage_Core_Model_Resource_Setup::applyAllUpdates()
+#5 E:\wamp\www\working\Infiniteshoes\app\code\core\Mage\Core\Model\App.php(354): Mage_Core_Model_App->_initModules()
+#6 E:\wamp\www\working\Infiniteshoes\app\Mage.php(684): Mage_Core_Model_App->run(Array)
+#7 E:\wamp\www\working\Infiniteshoes\index.php(83): Mage::run('', 'store')
+#8 {main}";s:3:"url";s:99:"/working/Infiniteshoes/index.php/admin/compiler_process/index/key/9f8b7e21b3b72efb3a79d6a2d85d8fc6/";s:11:"script_name";s:32:"/working/Infiniteshoes/index.php";s:4:"skin";s:7:"default";}

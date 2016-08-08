@@ -1,0 +1,222 @@
+/**
+* Extension: jQuery AJAX-ZOOM, jquery.axZm.mouseOverZoom.css
+* Copyright: Copyright (c) 2010-2016 Vadim Jacobi
+* License Agreement: http://www.ajax-zoom.com/index.php?cid=download
+* Extension Verion: 3.3.1
+* Extension Date: 2016-04-16
+* URL: http://www.ajax-zoom.com
+* Documentation && examples: http://www.ajax-zoom.com/examples/example32.php
+*/
+
+/* On default it is black */
+body:-webkit-full-screen  {background-color: #FFFFFF;} 
+body:-moz-full-screen     {background-color: #FFFFFF;} 
+body:-ms-full-screen      {background-color: #FFFFFF;} 
+body:-o-full-screen       {background-color: #FFFFFF;} 
+body:full-screen          {background-color: #FFFFFF;} 
+
+/* This is the moving lens square underneath the mouse pointer. */
+.axZm_mouseOverLens {
+	border: 1px solid transparent;
+	background-color: #000000;	
+	cursor: pointer;
+	background-image: url(../icons/mousetrapFullscreen.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+
+.axZm_mouseOverTrap {
+	background-image: url(../icons/empty.gif);
+	cursor: pointer;
+}
+ 
+/* This is for the title text. */
+.axZm_mouseOverTitle {
+	display: none;
+	font-family: Arial, Helvetica, sans-serif;
+	position: absolute !important;
+	background-color: #000;
+	color: #fff;
+	padding: 3px;
+	width: 100%;
+	text-align: center;	
+	font-weight: bold;
+	font-size: 10px;
+}
+
+/* Flyout zoom window */
+.axZm_mouseOverFlyOut {
+	border-color: #AAA;
+	border-style: solid;
+	/* border-width is set over option - "zoomAreaBorderWidth" */
+	background-color: #FFFFFF;
+	box-shadow: 5px 5px 7px #818181;
+	-webkit-box-shadow: 5px 5px 7px #818181;
+	-moz-box-shadow: 5px 5px 7px #818181;
+}
+
+/* This is the loading message. */
+.axZm_mouseOverLoading {
+	/*background-color: #444444;*/
+	background-image: url(../icons/tr_black_50.png);
+	padding: 5px;
+	text-align: right;
+	/*border: #000000 1px solid;*/
+	/*text-shadow: 1px 1px 2px #000;*/
+	font: Arial;
+	font-size: 12px;
+	line-height: 20px;
+	color: #FDFDFD;
+	border-radius: 5px;
+}
+
+.axZm_mouseOverWrapper{
+	-ms-touch-action: none;
+	touch-action: none;
+	-ms-user-select: none;
+	user-select: none;
+	-ms-touch-select: none;
+	touch-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+}
+
+.axZm_mouseOverWrapper img{
+	max-width: 999999px;
+	max-height: 999999px;
+}
+
+.axZm_mouseOverZoomHint{
+	position: absolute;
+	z-index: 7;
+	top: 3px;
+	left: 3px;
+	width: 30px;
+	height: 16px;
+	line-height: 16px;
+	padding-left: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #3D3D3D;
+	font-size: 11px;
+	background-image: url(../icons/mouseover_zoomHint.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+
+/* no image available */
+.axZm_mouseOverNoImage{
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background-color: #E3E3E3;
+	background-image: url(../icons/no-image-available.png);
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.axZm_mouseOverSpinWrapper{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 7777;
+	background-color: #FFF;
+}
+
+
+/* Thumbnails for gallery */
+.axZm_mouseOverThumb{
+	/* Empty class needed as identifier, do not put anything in it*/
+}
+
+.azThumb{
+	position: relative;
+	overflow: visible;
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+	white-space: normal !important;
+	font-size: 0px;
+	-moz-user-select: none;
+	-webkit-touch-callout: none; 
+	-webkit-user-select: none;
+	margin-right: -10px; /* compensate for last margin right of the thumb */
+}
+
+/* List items with image inside */
+.azThumb li {
+	position: relative;
+   	width: 120px; /* fixed width */
+   	height: 120px; /* fixed height */
+   	line-height: 0px;
+	margin: 0px 10px 10px 0px; /* space between thumbs*/
+	padding: 0px;
+	/*float: left !important;*/
+	cursor: pointer;
+	font-size: 0px;
+	vertical-align: middle; 
+	text-align: center;
+	
+	border: 1px solid #AAA;
+	/*border-radius: 5px 5px 5px 5px; /* optional */
+	/*
+	-webkit-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.1);
+	-moz-box-shadow:    1px 1px 3px 0px rgba(50, 50, 50, 0.1);
+	box-shadow:         1px 1px 3px 0px rgba(50, 50, 50, 0.1);
+	*/
+	background-color: #FFF;
+	background-position: center center;
+	background-repeat: no-repeat;
+	/* background-size: contain; /* would stretch the image to fit the width and height */
+	
+	/*ie7 - do not remove*/
+	display: inline-block; zoom: 1; *display: inline;
+}
+
+.azThumb li.selected {
+	border: 1px solid #0191ff;
+}
+
+/* This class will be added to the image inside li element */
+.azThumb li img.thumb {
+	vertical-align: middle;
+	pointer-events: none;
+	max-width: 100% !important;
+	max-height: 100% !important;
+}
+
+/* This class is for helper span to vertically align images as fix for Transitional doctype */
+.azThumb li span.vAlign {
+	display: inline-block; zoom: 1;  *display: inline;
+	vertical-align: middle;
+	height: 100%;
+}
+
+.azThumb li div.spinOverl, .axZmThumbSlider li div.spinOverl{
+	display: block;
+	position: absolute;
+	background-image: url(../icons/360_zoom_overl.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	left: 0; top: 0;
+	cursor: pointer;
+	z-index: 1;
+	pointer-events: none;
+}
+
+.azThumb li div.descr {
+	position: absolute;
+	color: #000000;
+	width: 100%;
+	text-align: center;
+	word-wrap: break-word;
+	font-family: Tahoma, Arial;
+	font-size: 10px;
+	text-shadow: 0px 0px 2px rgba(150, 150, 150, 1);
+	height: 10px;
+	line-height: 10px;
+	bottom: -12px;
+	left: 0;
+}

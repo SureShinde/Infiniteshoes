@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <menu>
+        <catalog>
+            <children>
+                <cbi translate="title" module="sitemap">
+                    <title>Manage Price</title>
+                    <sort_order>32</sort_order>
+                    <action>cbi/adminhtml_index/index</action>
+                </cbi>
+            </children>
+        </catalog>
+    </menu>
+</config>

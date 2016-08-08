@@ -1,0 +1,597 @@
+<?php
+/**
+*  Module: jQuery AJAX-ZOOM for Magento, /app/design/frontend/base/default/template/ax_zoom/catalog/product/view/media.phtml
+*  Copyright: Copyright (c) 2010-2016 Vadim Jacobi
+*  License Agreement: http://www.ajax-zoom.com/index.php?cid=download
+*  Version: 1.2.0
+*  Date: 2016-05-07
+*  Review: 2016-05-07
+*  URL: http://www.ajax-zoom.com
+*  Documentation: http://www.ajax-zoom.com/index.php?cid=modules&module=magento
+*
+*  @author    AJAX-ZOOM <support@ajax-zoom.com>
+*  @copyright 2010-2016 AJAX-ZOOM, Vadim Jacobi
+*  @license   http://www.ajax-zoom.com/index.php?cid=download
+*/
+
+$_product = $this->getProduct();
+$productId = $_product->getId();
+//$productId = Mage::app()->getRequest()->getParam('id');
+$ax = Mage::getModel('axzoom/ax360');
+$conf = Mage::getStoreConfig('axzoom_options');
+$axZmPath = Mage::getBaseUrl('js') . 'axzoom/axZm/';
+$product = Mage::getModel('catalog/product')->load($productId);
+$images360Json = $ax->images360Json($productId);
+$imagesJsonAll = array();
+
+$az_gallery_position = $conf['main']['galleryPosition'];
+if (!$az_gallery_position){$az_gallery_position = 'bottom';}
+?>
+
+<script type="text/javascript">
+	// Fallback if catalog_product_view reference name="head" is not loaded
+	var mageAzJsUrl = '<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS).'axzoom/'; ?>';
+	document.writeln(unescape("%3Cscript type='text/javascript' src='"+mageAzJsUrl+"check_fallback.js'%3E%3C/script%3E"));
+</script>
+
+<?php if ($az_gallery_position == 'bottom') { ?>
+<!-- AJAX-ZOOM mouseover block gallery bottom -->
+<div id="az_mouseOverZoomParent" style="position: relative; background-color: #FFFFFF;">
+	<!-- Container for mouse over image -->
+	<div id="az_mouseOverZoomContainer">
+	    <?php echo $this->__('Zoom loading...');?>
+	</div>
+
+	<!-- gallery with thumbs (will be filled with thumbs by javascript) -->
+	<div id="az_mouseOverZoomGallery">
+	    <?php echo $this->__('Gellery loading...');?>
+	</div>
+</div>
+<?php } elseif ($az_gallery_position == 'top') { ?>
+	<!-- AJAX-ZOOM mouseover block gallery top -->
+	<div id="az_mouseOverZoomParent" style="position: relative;">
+	
+		<!-- gallery with thumbs (will be filled with thumbs by javascript) -->
+		<div id="az_mouseOverZoomGallery" style="position: relative; margin-bottom: 10px; height: 76px; width: 100%;">
+		    <?php echo $this->__('Gellery loading...');?>
+		</div>
+		
+		<!-- Container for mouse over image -->
+		<div id="az_mouseOverZoomContainer" style="position: relative; background-color: #FFFFFF; border: #AAA 1px solid;">
+		    <?php echo $this->__('Mouseover Zoom loading...');?>
+		</div>
+	</div>
+<?php } elseif ($az_gallery_position == 'left') { ?>
+	<!-- AJAX-ZOOM mouseover block gallery left -->
+	<div id="az_mouseOverZoomParent" style="position: relative; width: 100%; margin-bottom: 20px;">
+
+		<!-- gallery with thumbs (will be filled with thumbs by javascript) -->
+		<div id="az_mouseOverZoomGallery">
+			<?php echo $this->__('Gellery loading...');?>
+		</div> 
+
+		<!-- Parent container for offset to the left or right -->
+		<div id="az_mouseOverZoomContainerParentGalleryLeft">
+			
+			<!-- Container for mouse over image -->
+			<div id="az_mouseOverZoomContainer" style="position: relative; border: #AAA 1px solid; background-color: #FFFFFF; padding: 0;">
+				<?php echo $this->__('Mouseover Zoom loading...');?>
+			</div>
+		</div>
+	</div>
+<?php } elseif ($az_gallery_position == 'right') { ?>
+	<!-- AJAX-ZOOM mouseover block gallery right -->
+	<div id="az_mouseOverZoomParent" style="position: relative; width: 100%; margin-bottom: 20px;">
+		<!-- gallery with thumbs (will be filled with thumbs by javascript) -->
+		<div id="az_mouseOverZoomGallery" style="position: absolute; margin-top: 0; right: 0; width: 72px; z-index: 1; height: 100%;">
+			<?php echo $this->__('Gellery loading...');?>
+		</div>
+
+		<!-- Parent container for offset to the left or right -->
+		<div id="az_mouseOverZoomContainerParentGalleryRight" style="margin-right: 80px; min-height: 100px;">
+			
+			<!-- Container for mouse over image -->
+			<div id="az_mouseOverZoomContainer" style="position: relative; border: #AAA 1px solid; background-color: #FFFFFF; padding: 0;">
+				<?php echo $this->__('Mouseover Zoom loading...');?>
+			</div>
+		</div>
+	</div>
+
+<?php } ?>
+
+<?php
+// 360 assigned from configurable products to Simple products
+$map = array();
+if ($groups = $ax->getCollection()->addFieldToFilter('id_product', $productId)->getData()) {
+	foreach ($groups as $group) {
+		$comp = Mage::helper('core')->jsonDecode($group['combinations']);
+		if ($comp) {
+			foreach ($comp as $pid) {
+				if (!isset($map[$pid])) {
+					$map[$pid] = array();
+				}
+				array_push($map[$pid], $group['id_360']);
+			}
+		}
+	}
+}
+
+// all attributes map
+$mapAttributesCodeId = array();
+$attributes = Mage::getResourceModel('catalog/product_attribute_collection')->getItems();
+foreach ($attributes as $attribute){
+	$mapAttributesCodeId[$attribute->getAttributecode()] = $attribute->getId();
+}
+$mapAttributesIdCode = array_flip($mapAttributesCodeId);
+
+// get configurable options
+if ($product->type_id == 'configurable') {
+	$attributesCodes = array();
+	$productAttributesOptions = $product->getTypeInstance(true)->getConfigurableOptions($product);
+	foreach ($productAttributesOptions as $productAttributeId => $productAttributeOption) {
+		$attributesCodes[] = $mapAttributesIdCode[$productAttributeId];
+	}
+}
+
+// get associated products
+$res = array();
+if ($product->isConfigurable()) {
+	$childProducts = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null, $product);
+
+	foreach ($childProducts as $child) {
+
+		$data = $child->getData();
+		$p = Mage::getModel('catalog/product')->load($data['entity_id']);
+
+		$pairs = array();
+		$labels = array();
+
+		foreach ($attributesCodes as $code) { // $code is e.g. color or size
+			$pairs[] = $mapAttributesCodeId[$code] . ':' . $data[$code]; // generate pairs of attribures
+			$attr = $product->getResource()->getAttribute($code);
+			
+			// We need to get default label value and not language value - getAllOptions(false, true) will return default values
+			// http://docs.magentocommerce.com/Mage_Eav/Mage_Eav_Model_Entity_Attribute_Source_Table.html
+			$option_label = $ax->findDefaultLabelValue($attr->getSource()->getAllOptions(false, true), $data[$code]);
+			if ($option_label == false){
+				// This would return language specific values
+				$option_label = $attr->getSource()->getOptionText($data[$code]);
+			}
+
+			array_push($labels, trim($option_label));
+		}
+
+		$idx = implode(',', $pairs);
+		$res[$idx] = array();
+		
+		$obj = null;
+		$cnt = 0;
+		
+		// add native images
+		foreach ($p->getMediaGalleryImages() as $image) {
+			$tmp = parse_url($image->getUrl());
+			if (!$obj) $obj = new stdClass;
+			$params = new stdClass;
+			$params->img = $tmp['path'];
+			array_push($imagesJsonAll, $tmp['path']);
+			$params->title = '';
+			$obj->$cnt = $params; 
+			$cnt++;
+		}
+
+		// add related images via labels (images from configurable product)
+		foreach ($product->getMediaGalleryImages() as $image) {
+			if ($image->label_default != '' && in_array(trim($image->label_default), $labels)) {	
+				$tmp = parse_url($image->getUrl());
+				if (!$obj) $obj = new stdClass;
+				$params = new stdClass;
+				$params->img = $tmp['path'];
+				array_push($imagesJsonAll, $tmp['path']);
+				$params->title = '';
+				$obj->$cnt = $params; 
+				$cnt++;
+			}else{
+				$tmp = parse_url($image->getUrl());
+				array_push($imagesJsonAll, $tmp['path']);
+			}
+		}
+
+		if ($obj != null){
+			$res[$idx]['images'] = $obj;
+		} else {
+			$res[$idx]['images'] = new stdClass();
+		}
+
+		$extraGroups = empty($map[$data['entity_id']]) ? array() : $map[$data['entity_id']];
+		$res[$idx]['images360'] = Mage::helper('core')->jsonDecode(str_replace("'", '"', $ax->images360Json($data['entity_id'], $extraGroups)));
+	}
+}else{
+    if (count($this->getGalleryImages()) > 0) {
+
+        // If no base image is defined and there is only one image in the gallery and there is a 360 view for this product, then we do not show this image at all.
+        // You can change it by setting the radio button "Base Image" under product configuration -> Images
+        if (!($images360Json != '{}' && count($this->getGalleryImages()) == 1 && $product->getImage() == 'no_selection')){
+
+            // Loop over gallery images
+            foreach ($this->getGalleryImages() as $image) {
+
+                $check_image = false;
+
+                if (method_exists($this, 'isGalleryImageVisible')) {
+                    $check_image = $this->isGalleryImageVisible($image);
+                } else {
+                    $check_image = true;
+                }
+
+                if ($check_image) {
+                    $cnt++;
+                    $tmp = parse_url($image->getUrl());
+                    array_push($imagesJsonAll, $tmp['path']);
+                    //array_push($imagesJson, $cnt . ': {img: "' . $tmp['path'] . '", title: ""}');
+                }
+            }
+        }
+    }
+}
+
+// Prepare json for AJAX-ZOOM
+$cnt = 0;
+$imagesJson = array();
+$imagesJsonAll = array_unique($imagesJsonAll);
+// Some images present
+if (count($this->getGalleryImages()) > 0) {
+	
+	// If no base image is defined and there is only one image in the gallery and there is a 360 view for this product, then we do not show this image at all. 
+	// You can change it by setting the radio button "Base Image" under product configuration -> Images 
+	if (!($images360Json != '{}' && count($this->getGalleryImages()) == 1 && $product->getImage() == 'no_selection')){
+		
+		// Loop over gallery images
+		foreach ($this->getGalleryImages() as $image) {
+			
+			$check_image = false;
+
+			if (method_exists($this, 'isGalleryImageVisible')) {
+				$check_image = $this->isGalleryImageVisible($image);
+			} else {
+				$check_image = true;
+			}
+
+			if ($check_image) {
+				$cnt++;
+				$tmp = parse_url($image->getUrl());
+				array_push($imagesJson, $cnt . ': {img: "' . $tmp['path'] . '", title: ""}');
+			}
+		}
+	}
+}
+// No images present
+else if ($conf['magento']['magentoNoImage'])
+{
+	if ($image_url = $this->helper('catalog/image')->init($product, 'image')) {
+		$tmp = parse_url($image_url);
+		array_push($imagesJson, '1: {img: "' . $tmp['path'] . '", title: ""}');
+	}
+}
+
+//print_r($imagesJsonAll);exit();
+//MAIN_GALLERYPOSITION 
+echo $this->getChildHtml('after');
+?>
+
+<!-- AJAX-ZOOM js block -->
+<script type="text/javascript">
+/*!
+*  Module: jQuery AJAX-ZOOM for Magento
+*  Info: http://www.ajax-zoom.com/index.php?cid=modules&module=magento
+*  @copyright 2010-2016 AJAX-ZOOM, Vadim Jacobi
+*  @license http://www.ajax-zoom.com/index.php?cid=download
+*/
+
+;(function($){
+
+	// Load plugin settings
+	<?php
+	$exclParArray = array('LICENSE_LIC');
+	foreach ($conf as $group => $data){
+		foreach ($data as $key => $value){
+			$groupKey = strtoupper($group . '_' . $key);
+			if (!in_array($groupKey, $exclParArray)){
+				if ($value == 'false' || $value == 'true' || $value == 'null' || is_numeric($value) || substr(trim($value), 0, 1) == '{' || substr(trim($value), 0, 1) == '['){
+					echo '	var AJAXZOOM_' . $groupKey . ' = ' . $value . '; ';// . "\n";
+				} else {
+					echo '	var AJAXZOOM_' . $groupKey . ' = "' . str_replace('"', '&#34;', $value) . '"; ';// . "\n";
+				}
+			}
+		}
+	}
+	?>
+
+	var AXZMPATH = '<?php echo $axZmPath; ?>';
+
+	// Colors / attributes
+	var axAssociated = jQuery.parseJSON('<?php echo Mage::helper('core')->jsonEncode($res); ?>');
+
+	// Default plain images
+    console.log(<?php echo $ax->imagesJsonAll($imagesJsonAll);?>)
+	<?php if ($conf['magento']['magentoAllImagesStart'] == 'true'){ ?>
+		var IMAGES_JSON = <?php echo $ax->imagesJsonAll($imagesJsonAll);?>;
+	<?php } else { ?>
+		var IMAGES_JSON = {<?php echo implode(',', $imagesJson);?>};
+	<?php } ?>	
+
+	// All images
+	var IMAGES_ALL_JSON = <?php echo $ax->imagesJsonAll($imagesJsonAll);?>;
+
+	// Default 360
+	var IMAGES_360_JSON = <?php echo $images360Json; ?>;
+
+	// Need that later for not reloading if images are the same
+	var IMAGES_AND_360_LOADED = JSON.stringify({
+		images: jQuery.extend(true, {}, IMAGES_JSON),
+		images360: jQuery.extend(true, {}, IMAGES_360_JSON)
+	});
+
+	// AJAX-ZOOM mouseover and other parameters
+	var zoomParams = {
+		disableAllMsg: AJAXZOOM_MAIN_DISABLEALLMSG,
+		axZmPath: AXZMPATH,
+		divID: AJAXZOOM_MAIN_DIVID,
+		galleryDivID: AJAXZOOM_MAIN_GALLERYDIVID,
+		hideGalleryOneImage: AJAXZOOM_MAIN_HIDEGALLERYONEIMAGE,
+		hideGalleryAddClass: AJAXZOOM_MAIN_HIDEGALLERYADDCLASS,
+		galleryHover: AJAXZOOM_MAIN_GALLERYHOVER,
+		galleryAxZmThumbSlider: AJAXZOOM_MAIN_GALLERYAXZMTHUMBSLIDER,
+		galleryAxZmThumbSliderParam: (AJAXZOOM_MAIN_GALLERYPOSITION == 'bottom' || AJAXZOOM_MAIN_GALLERYPOSITION == 'top') ? AJAXZOOM_MAIN_GALLERYAXZMTHUMBSLIDERPARAM : AJAXZOOM_MAIN_GALLERYAXZMTHUMBSLIDERPARAM_VERTICAL,
+		thumbW: AJAXZOOM_MAIN_THUMBW, 
+		thumbH: AJAXZOOM_MAIN_THUMBH,
+		thumbRetina: AJAXZOOM_MAIN_THUMBRETINA,
+		qualityThumb: AJAXZOOM_MAIN_QUALITYTHUMB,
+		quality: AJAXZOOM_MAIN_QUALITY,
+		qualityZoom: AJAXZOOM_MAIN_QUALITYZOOM,
+		cropAxZmThumbSliderParam: AJAXZOOM_PRODUCTTOUR_CROPAXZMTHUMBSLIDERPARAM,
+		cropSliderPosition: AJAXZOOM_PRODUCTTOUR_CROPSLIDERPOSITION,
+		cropSliderDimension: AJAXZOOM_PRODUCTTOUR_CROPSLIDERDIMENSION,
+		cropSliderThumbAutoSize: AJAXZOOM_PRODUCTTOUR_CROPSLIDERTHUMBAUTOSIZE,
+		cropSliderThumbAutoMargin: AJAXZOOM_PRODUCTTOUR_CROPSLIDERTHUMBAUTOMARGIN,
+		cropSliderThumbDescr: AJAXZOOM_PRODUCTTOUR_CROPSLIDERTHUMBDESCR,
+		images: IMAGES_JSON,
+		firstImageToLoad: AJAXZOOM_MAIN_FIRSTIMAGETOLOAD,
+		images360: IMAGES_360_JSON,
+		images360firstToLoad: AJAXZOOM_MAIN_IMAGES360FIRSTTOLOAD,
+		images360Thumb: AJAXZOOM_MAIN_IMAGES360THUMB,
+		images360Overlay: AJAXZOOM_MAIN_IMAGES360OVERLAY,
+		images360Preview: AJAXZOOM_MAIN_IMAGES360PREVIEW,
+		images360PreviewResponsive: AJAXZOOM_MAIN_IMAGES360PREVIEWRESPONSIVE,
+		images360examplePreview: AJAXZOOM_MAIN_IMAGES360EXAMPLEPREVIEW,
+		zoomMsg360: AJAXZOOM_MAIN_ZOOMMSG360,
+		zoomMsg360_touch: AJAXZOOM_MAIN_ZOOMMSG360_TOUCH,
+		preloadMouseOverImages: AJAXZOOM_MAIN_PRELOADMOUSEOVERIMAGES,
+		noImageAvailableClass: AJAXZOOM_MAIN_NOIMAGEAVAILABLECLASS,
+		width: AJAXZOOM_MAIN_WIDTH,
+		height: AJAXZOOM_MAIN_HEIGHT,
+		responsive: AJAXZOOM_MAIN_RESPONSIVE,
+		oneSrcImg: AJAXZOOM_MAIN_ONESRCIMG,
+		heightRatio: AJAXZOOM_MAIN_HEIGHTRATIO,
+		heightMaxWidthRatio: AJAXZOOM_MAIN_HEIGHTMAXWIDTHRATIO,
+		widthRatio: AJAXZOOM_MAIN_WIDTHRATIO,
+		widthMaxHeightRatio: AJAXZOOM_MAIN_WIDTHMAXHEIGHTRATIO,
+		maxSizePrc: AJAXZOOM_MAIN_MAXSIZEPRC,
+		mouseOverZoomWidth: AJAXZOOM_MAIN_MOUSEOVERZOOMWIDTH,
+		mouseOverZoomHeight: AJAXZOOM_MAIN_MOUSEOVERZOOMHEIGHT,
+		ajaxZoomOpenMode: AJAXZOOM_MAIN_AJAXZOOMOPENMODE,
+		fancyBoxParam: AJAXZOOM_MAIN_FANCYBOXPARAM,
+		colorBoxParam: AJAXZOOM_MAIN_COLORBOXPARAM,
+		example: AJAXZOOM_MAIN_EXAMPLE,
+		exampleFancyboxFullscreen: AJAXZOOM_MAIN_EXAMPLEFANCYBOXFULLSCREEN,
+		exampleFancybox: AJAXZOOM_MAIN_EXAMPLEFANCYBOX,
+		exampleColorbox: AJAXZOOM_MAIN_EXAMPLECOLORBOX,
+		enforceFullScreenRes: AJAXZOOM_MAIN_ENFORCEFULLSCREENRES,
+		prevNextArrows: AJAXZOOM_MAIN_PREVNEXTARROWS,
+		disableScrollAnm: AJAXZOOM_MAIN_DISABLESCROLLANM,
+		fullScreenApi: AJAXZOOM_MAIN_FULLSCREENAPI,
+		axZmCallBacks: AJAXZOOM_MAIN_AXZMCALLBACKS,
+		azOptions: AJAXZOOM_MAIN_AZOPTIONS,
+		azOptions360: AJAXZOOM_MAIN_AZOPTIONS360,
+		postMode: AJAXZOOM_MAIN_POSTMODE,
+		pinterest: {
+			enabled: AJAXZOOM_PINTEREST_ENABLED,
+			build: AJAXZOOM_PINTEREST_BUILD,
+			wrapClass: AJAXZOOM_PINTEREST_WRAPCLASS,
+			btnSrc: AJAXZOOM_PINTEREST_BTNSRC,
+			data: { // any data attributes
+				"pin-do" : "buttonPin",
+				"pin-shape": null,
+				"pin-config": "none", 
+				"pin-color": null,
+				"pin-height": null
+			}
+		},
+		mouseOverZoomParam: {
+			position: AJAXZOOM_MOUSEOVERZOOMPARAM_POSITION,
+			posAutoInside: AJAXZOOM_MOUSEOVERZOOMPARAM_POSAUTOINSIDE,
+			touchScroll: AJAXZOOM_MOUSEOVERZOOMPARAM_TOUCHSCROLL,
+			noMouseOverZoom: AJAXZOOM_MOUSEOVERZOOMPARAM_NOMOUSEOVERZOOM,
+			autoFlip: AJAXZOOM_MOUSEOVERZOOMPARAM_AUTOFLIP,
+			biggestSpace: AJAXZOOM_MOUSEOVERZOOMPARAM_BIGGESTSPACE,
+			zoomFullSpace: AJAXZOOM_MOUSEOVERZOOMPARAM_ZOOMFULLSPACE,
+			zoomWidth: AJAXZOOM_MOUSEOVERZOOMPARAM_ZOOMWIDTH,
+			zoomHeight: AJAXZOOM_MOUSEOVERZOOMPARAM_ZOOMHEIGHT,
+			autoMargin: AJAXZOOM_MOUSEOVERZOOMPARAM_AUTOMARGIN,
+			adjustX: AJAXZOOM_MOUSEOVERZOOMPARAM_ADJUSTX,
+			adjustY: AJAXZOOM_MOUSEOVERZOOMPARAM_ADJUSTY,
+			lensOpacity: AJAXZOOM_MOUSEOVERZOOMPARAM_LENSOPACITY, 
+			lensStyle: AJAXZOOM_MOUSEOVERZOOMPARAM_LENSSTYLE,
+			lensClass: AJAXZOOM_MOUSEOVERZOOMPARAM_LENSCLASS,
+			zoomAreaBorderWidth: AJAXZOOM_MOUSEOVERZOOMPARAM_ZOOMAREABORDERWIDTH,
+			galleryFade: AJAXZOOM_MOUSEOVERZOOMPARAM_GALLERYFADE,
+			shutterSpeed: AJAXZOOM_MOUSEOVERZOOMPARAM_SHUTTERSPEED,
+			showFade: AJAXZOOM_MOUSEOVERZOOMPARAM_SHOWFADE,
+			hideFade: AJAXZOOM_MOUSEOVERZOOMPARAM_HIDEFADE, 
+			autoScroll: AJAXZOOM_MOUSEOVERZOOMPARAM_AUTOSCROLL,
+			flyOutSpeed: AJAXZOOM_MOUSEOVERZOOMPARAM_FLYOUTSPEED,
+			flyOutTransition: AJAXZOOM_MOUSEOVERZOOMPARAM_FLYOUTTRANSITION,
+			flyOutOpacity: AJAXZOOM_MOUSEOVERZOOMPARAM_FLYOUTOPACITY,
+			flyBackSpeed: AJAXZOOM_MOUSEOVERZOOMPARAM_FLYBACKSPEED,
+			flyBackTransition: AJAXZOOM_MOUSEOVERZOOMPARAM_FLYBACKTRANSITION,
+			flyBackOpacity: AJAXZOOM_MOUSEOVERZOOMPARAM_FLYBACKOPACITY,
+			smoothMove: AJAXZOOM_MOUSEOVERZOOMPARAM_SMOOTHMOVE, 
+			tint: AJAXZOOM_MOUSEOVERZOOMPARAM_TINT,
+			tintOpacity: AJAXZOOM_MOUSEOVERZOOMPARAM_TINTOPACITY, 
+			tintFilter: AJAXZOOM_MOUSEOVERZOOMPARAM_TINTFILTER,
+			tintLensBack: AJAXZOOM_MOUSEOVERZOOMPARAM_TINTLENSBACK,
+			showTitle: AJAXZOOM_MOUSEOVERZOOMPARAM_SHOWTITLE, 
+			titleOpacity: AJAXZOOM_MOUSEOVERZOOMPARAM_TITLEOPACITY, 
+			titlePosition: AJAXZOOM_MOUSEOVERZOOMPARAM_TITLEPOSITION, 
+			cursorPositionX: AJAXZOOM_MOUSEOVERZOOMPARAM_CURSORPOSITIONX, 
+			cursorPositionY: AJAXZOOM_MOUSEOVERZOOMPARAM_CURSORPOSITIONY,
+			loading: AJAXZOOM_MOUSEOVERZOOMPARAM_LOADING, 
+			loadingMessage: AJAXZOOM_MOUSEOVERZOOMPARAM_LOADINGMESSAGE, 
+			loadingWidth: AJAXZOOM_MOUSEOVERZOOMPARAM_LOADINGWIDTH, 
+			loadingHeight: AJAXZOOM_MOUSEOVERZOOMPARAM_LOADINGHEIGHT, 
+			loadingOpacity: AJAXZOOM_MOUSEOVERZOOMPARAM_LOADINGOPACITY,
+			zoomHintEnable: AJAXZOOM_MOUSEOVERZOOMPARAM_ZOOMHINTENABLE,
+			zoomHintText: AJAXZOOM_MOUSEOVERZOOMPARAM_ZOOMHINTTEXT,
+			zoomMsgHover: AJAXZOOM_MOUSEOVERZOOMPARAM_ZOOMMSGHOVER,
+			zoomMsgClick: AJAXZOOM_MOUSEOVERZOOMPARAM_ZOOMMSGCLICK,
+			slideInTime: AJAXZOOM_MOUSEOVERZOOMPARAM_SLIDEINTIME,
+			slideInEasingCSS3: AJAXZOOM_MOUSEOVERZOOMPARAM_SLIDEINEASINGCSS3,
+			slideInEasing: AJAXZOOM_MOUSEOVERZOOMPARAM_SLIDEINEASING,
+			slideInScale:AJAXZOOM_MOUSEOVERZOOMPARAM_SLIDEINSCALE,
+			slideOutScale: AJAXZOOM_MOUSEOVERZOOMPARAM_SLIDEOUTSCALE,
+			slideOutOpacity: AJAXZOOM_MOUSEOVERZOOMPARAM_SLIDEOUTOPACITY, 
+			slideOutDest: AJAXZOOM_MOUSEOVERZOOMPARAM_SLIDEOUTDEST,
+			onInit: AJAXZOOM_MOUSEOVERZOOMPARAM_ONINIT, 
+			onLoad: AJAXZOOM_MOUSEOVERZOOMPARAM_ONLOAD,
+			onImageChange: AJAXZOOM_MOUSEOVERZOOMPARAM_ONIMAGECHANGE,
+			onMouseOver: AJAXZOOM_MOUSEOVERZOOMPARAM_ONMOUSEOVER,
+			onMouseOut: AJAXZOOM_MOUSEOVERZOOMPARAM_ONMOUSEOUT,
+			spinner: AJAXZOOM_MOUSEOVERZOOMPARAM_SPINNER,
+			spinnerParam: AJAXZOOM_MOUSEOVERZOOMPARAM_SPINNERPARAM
+		}
+	};
+
+	// Swatches
+	var resetAxZoom = function() {
+		if (JSON.stringify({images: IMAGES_JSON, images360: IMAGES_360_JSON}) == IMAGES_AND_360_LOADED) { 
+			return;
+		} 
+		
+		IMAGES_AND_360_LOADED = JSON.stringify({images: IMAGES_JSON, images360: IMAGES_360_JSON});
+		jQuery.mouseOverZoomInit.replaceImages( { 
+			divID: AJAXZOOM_MAIN_DIVID,
+			galleryDivID: AJAXZOOM_MAIN_GALLERYDIVID,
+			images: IMAGES_JSON,
+			images360: IMAGES_360_JSON
+		});
+	};
+	
+	// Change values
+	var updateAxZoomAction = function(idxSel, checkout) { 
+		//JSON.stringify(obj1) === JSON.stringify(obj2) 
+		if ( (jQuery.isPlainObject(idxSel.images) && !jQuery.isEmptyObject(idxSel.images) ) 
+			|| (jQuery.isPlainObject(idxSel.images360) && !jQuery.isEmptyObject(idxSel.images360) )) {
+			
+			if (JSON.stringify({images: idxSel.images, images360: idxSel.images360}) == IMAGES_AND_360_LOADED){
+				return;
+			} 
+			
+			IMAGES_AND_360_LOADED = JSON.stringify({images: idxSel.images, images360: idxSel.images360});
+			
+			if (checkout){
+				zoomParams.images = idxSel.images;
+				zoomParams.images360 = idxSel.images360;
+				jQuery.mouseOverZoomInit(zoomParams);
+			} else {
+				jQuery.mouseOverZoomInit.replaceImages( { 
+					divID: AJAXZOOM_MAIN_DIVID,
+					galleryDivID: AJAXZOOM_MAIN_GALLERYDIVID,
+					images: idxSel.images,
+					images360: idxSel.images360
+				} );
+			}
+		} else { // show initial images
+			resetAxZoom();
+		}
+	};
+	
+	var updateAxZoom = function(e, check) {
+		var obj = jQuery(this);
+
+		var requestSet = function() {
+			if (!spConfig){
+				return;
+			}
+		
+			if((!check && e && e.type == 'change' && obj.val() == '')) {
+				resetAxZoom();
+				return;
+			}
+
+			var pairs = [];
+			var inWhichObj = (check ? (spConfig.values ? spConfig.values : spConfig.state) : spConfig.state);
+			for (var k in inWhichObj) { 
+				if (typeof spConfig.state[k] !== 'function' && typeof spConfig.state[k] !== 'object' && (spConfig.state[k] != false || (spConfig.values && check))) {
+					pairs.push(k + ':' + inWhichObj[k]);
+				}
+			}
+
+			var idx = pairs.join(',');
+			var idxSel = axAssociated[idx];
+
+			if (check) { 
+				return idxSel;
+			}
+
+			if (idxSel) {
+				updateAxZoomAction(idxSel);
+			} else {
+				// try to find whatever
+				jQuery.each(axAssociated, function(k, v){
+					if (k.indexOf(idx) != -1){
+						updateAxZoomAction(v);
+						return false;
+					}
+				})
+			}
+		};
+		
+		if (check){
+			return requestSet();
+		}else{
+			setTimeout(function(){
+				requestSet();
+			}, 50);		
+		}
+	
+	};
+	
+	// Shortcut for maybe other applications or additional functionality
+	// window.resetAxZoom() will reset AJAX-ZOOM to the state when article is loaded without attribute selection
+	window.resetAxZoom = resetAxZoom;
+	window.updateAxZoom = updateAxZoom;
+	
+	// Init AJAX-ZOOM
+	jQuery.mouseOverZoomInit(zoomParams);
+
+	jQuery(document).ready(function() {
+		jQuery('.swatch-label').click(updateAxZoom); // version 1.9.1 or more
+		jQuery('.super-attribute-select').change(updateAxZoom);
+		if (window.spConfig && spConfig.values) { 
+			var aaa = window.updateAxZoom(null, true);
+			if (aaa){
+				updateAxZoomAction(aaa);
+			}
+		}
+
+        //default pre-select
+        var aaa = window.updateAxZoom(null, false);
+        if (aaa){
+            updateAxZoomAction(aaa);
+        }
+        jQuery("#attribute92").val($("#attribute92 option:nth-child(2)").val());
+        var color_label = $("#attribute92 option:nth-child(2)").text()
+        $("#select_label_color").html(color_label);
+	});
+	
+})(jQuery);
+</script>

@@ -1,0 +1,61 @@
+<?php
+    $giftCardCollection = $this->getAppliedGiftCardCollection();
+    /*$amount = $this->getAmount();
+    $cartTotal = $this->getCartTotalWithoutGiftCard();*/
+    ?>
+    <form id="discount-giftcard-form" action="<?php echo $this->getUrl('giftcard/checkout_cart/giftCardPost') ?>" method="post">
+
+        <div class="discount gc giftcard full left">
+            <div class="checkoutBox_title box_discout full left">
+                <?php echo $this->__('Have a Gift Card?') ?>
+            </div>
+
+            <div class="checkoutBox_contet full left">
+                <div class="left">
+                    <?php //if ($cartTotal > $amount): ?>
+                    <!--<label for="giftcard_code"><?php /*echo $this->__('Enter your gift card code if you have one.') */?></label>-->
+
+                    <input class="input-text" id="giftcard_code" placeholder="Gift Card Number" name="giftcard_code" value="<?php echo $this->escapeHtml($this->getgiftcardCode()) ?>" />
+                    <!--<div class="input-box">
+                <input class="input-text" id="giftcard_code" name="giftcard_code" value="<?php /*echo $this->escapeHtml($this->getgiftcardCode()) */?>" />
+            </div>-->
+                    <?php //endif; ?>
+
+                    <?php if (count($giftCardCollection) > 0): ?>
+                        <dl class="gc-applied-gift-cards">
+                            <dt><?php echo $this->__('Applied Gift Cards');?></dt>
+                            <dd>
+                                <ul>
+                                    <?php foreach ($giftCardCollection as $giftCard): ?>
+                                        <li>
+                                            <?php if (count($giftCardCollection) > 1): ?>
+                                                <input name="giftcard_remove[]" value="<?php echo $giftCard->getCode();?>"  class="checkbox" type="checkbox">
+                                            <?php else: ?>
+                                                <input name="giftcard_remove[]" value="<?php echo $giftCard->getCode();?>" type="hidden">
+                                            <?php endif; ?>
+                                            <label><?php echo $giftCard->getCode();?>
+                                                <?php $currentCurrency = Mage::app()->getStore()->getCurrentCurrencyCode();?>
+                                                -
+                                <span class="price"><?php echo $giftCard->getFormatedBalance($currentCurrency);?>
+                                    <?php if ($giftCard->getCurrency() != $currentCurrency): ?>
+                                        (<?php echo $giftCard->getFormatedBalance();?>)
+                                    <?php endif; ?>
+                                </span>
+                                            </label>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </dd>
+                        </dl>
+                    <?php endif; ?>
+                </div>
+                <div class="button-wrapper">
+                    <input type="hidden" name="remove" id="remove-giftcard" value="0" />
+                    <button type="button" title="<?php echo $this->__('Apply') ?>" class="button active" onclick="applyGiftcard('<?php echo $this->getUrl('giftcard/checkout_cart/giftCardAjax') ?>');" value="<?php echo $this->__('Apply Gift Card') ?>"><span><span><?php echo $this->__('Apply') ?></span></span></button>
+                    <?php if (count($giftCardCollection) > 0): ?>
+                        <button type="button" title="<?php echo $this->__('Remove') ?>" class="button" onclick="discountGiftCardForm.submit(true)" value="<?php echo $this->__('Remove Gift Cards') ?>"><span><span><?php echo $this->__('Remove') ?></span></span></button>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </form>
